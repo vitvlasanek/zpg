@@ -14,12 +14,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+#include "VertexShader.h"
+#include "Camera.h"
+#include "Window.h"
+#include "FragmentShader.h"
+#include "VertexShader.h"
+#include "VertexBufferObject.h"
+#include "VertexArrayObject.h"
+
+
 float points[] = {
 	0.0f, 0.5f, 0.0f,
 	0.5f, -0.5f, 0.0f,
    -0.5f, -0.5f, 0.0f
 };
 
+
+//
 const char* vertex_shader =
 "#version 330\n"
 "layout(location=0) in vec3 vp;"
@@ -28,7 +40,7 @@ const char* vertex_shader =
 "}";
 
 
-
+//
 const char* fragment_shader =
 "#version 330\n"
 "out vec4 frag_colour;"
@@ -81,62 +93,25 @@ glm::mat4 Model = glm::mat4(1.0f);
 
 int main(void)
 {
-	GLFWwindow* window;
-	glfwSetErrorCallback(error_callback);
-	if (!glfwInit()) {
-		fprintf(stderr, "ERROR: could not start GLFW3\n");
-		exit(EXIT_FAILURE);
-	}
 
-	//inicializace konkretni verze
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE,
-	GLFW_OPENGL_CORE_PROFILE);
+	//GLFWwindow* window;
 
-	window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
-	if (!window) {
-		glfwTerminate();
-		exit(EXIT_FAILURE);
-	}
-
-	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1);
-
-	// start GLEW extension handler
-	glewExperimental = GL_TRUE;
-	glewInit();
+	Window win = Window::WindowBuilder("ZPG")
+		.SetOpenGLVersion(3,3)
+		.SetSize(800,600)
+		.Build();
 
 
-	// get version info
-	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
-	printf("Using GLEW %s\n", glewGetString(GLEW_VERSION));
-	printf("Vendor %s\n", glGetString(GL_VENDOR));
-	printf("Renderer %s\n", glGetString(GL_RENDERER));
-	printf("GLSL %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-	int major, minor, revision;
-	glfwGetVersion(&major, &minor, &revision);
-	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
+	win.GetInfo();
 
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-	float ratio = width / (float)height;
-	glViewport(0, 0, width, height);
+	GLFWwindow * window = win.GetWindow();
 
-	//vertex buffer object (VBO)
-	GLuint VBO = 0;
-	glGenBuffers(1, &VBO); // generate the VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+	VertexBufferObject* vbo = new VertexBufferObject();
+	vbo->Bind(sizeof(points), points, GL_STATIC_DRAW);
 
-	//Vertex Array Object (VAO)
-	GLuint VAO = 0;
-	glGenVertexArrays(1, &VAO); //generate the VAO
-	glBindVertexArray(VAO); //bind the VAO
-	glEnableVertexAttribArray(0); //enable vertex attributes
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	VertexArrayObject* vao = new VertexArrayObject();
+
+	auto VAO = vao->GetVAO();
 
 	//create and compile shaders
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -166,7 +141,6 @@ int main(void)
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
-
 
 
 

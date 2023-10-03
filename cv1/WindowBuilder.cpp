@@ -1,34 +1,60 @@
-#include "WindowBuilder.h"
+#include "Window.h"
 
-WindowBuilder::WindowBuilder(const char* title)
+
+Window::WindowBuilder::WindowBuilder(const char* title)
 {
 	this->title_ = title;
 }
 
-WindowBuilder& WindowBuilder::SetOpenGLVersion(int major, int minor)
+Window::WindowBuilder& Window::WindowBuilder::SetOpenGLVersion(int major, int minor)
 {
-	major_version_ = major;
-	minor_version_ = minor;
+	this->major_version_ = major;
+	this->minor_version_ = minor;
 	return *this;
 }
 
-WindowBuilder& WindowBuilder::SetFullscreen(bool useFullscreen)
+Window::WindowBuilder& Window::WindowBuilder::SetFullscreen(bool useFullscreen)
 {
-	fullscreen_ = useFullscreen;
+	this->fullscreen_ = useFullscreen;
 	return *this;
 }
 
-WindowBuilder& WindowBuilder::SetSize(int width, int height)
+Window::WindowBuilder& Window::WindowBuilder::SetSize(int width, int height)
 {
-	width_ = width;
-	height_ = height;
+	this->width_ = width;
+	this->height_ = height;
 	return *this;
 }
 
-Window WindowBuilder::Build()
+Window Window::WindowBuilder::Build()
 {
-	return Window();
+	return Window(*this);
 }
+
+
+//WindowBuilder& WindowBuilder::SetOpenGLVersion(int major, int minor)
+//{
+//	major_version_ = major;
+//	minor_version_ = minor;
+//	return *this;
+//}
+//
+//WindowBuilder& WindowBuilder::SetFullscreen(bool useFullscreen)
+//{
+//	fullscreen_ = useFullscreen;
+//	return *this;
+//}
+//
+//WindowBuilder& WindowBuilder::SetSize(int width, int height)
+//{
+//	width_ = width;
+//	height_ = height;
+//	return *this;
+//}
+//Window WindowBuilder::Build()
+//{
+//	return Window(this);
+//}
 
 
 
