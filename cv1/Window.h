@@ -29,16 +29,16 @@ public:
 	Window(const WindowBuilder& builder);
 	~Window();
 	Window(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share);
-	void SetWindow(GLFWwindow* window);
 	GLFWwindow* GetWindow();
-	void window_focus_callback(int focused);
-	void window_iconify_callback(int iconified);
-	void window_size_callback(int width, int height);
+	void SetWindow(GLFWwindow* window);
 	void GetInfo();
 	void Run(GLuint shader_program, GLuint VAO);
 
 private:
 	GLFWwindow* window_;
 	static void error_callback(int error, const char* description);
+	void window_focus_callback(int focused);
+	void window_iconify_callback(int iconified);
+	void window_size_callback(int width, int height);
 };
 

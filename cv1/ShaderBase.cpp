@@ -6,6 +6,11 @@ void ShaderBase::AttachShader(GLuint* shader_program)
 	return;
 }
 
+GLuint ShaderBase::GetShader()
+{
+	return this->shader;
+}
+
 ShaderBase::~ShaderBase()
 {
 	glDeleteShader(this->shader);

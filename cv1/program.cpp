@@ -31,51 +31,6 @@ float points[] = {
 };
 
 
-//
-const char* vertex_shader =
-"#version 330\n"
-"layout(location=0) in vec3 vp;"
-"void main () {"
-"     gl_Position = vec4 (vp, 1.0);"
-"}";
-
-
-//
-const char* fragment_shader =
-"#version 330\n"
-"out vec4 frag_colour;"
-"void main () {"
-"     frag_colour = vec4 (0.5, 0.0, 0.5, 1.0);"
-"}";
-
-
-
-
-static void error_callback(int error, const char* description) { fputs(description, stderr); }
-
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
-}
-
-static void window_focus_callback(GLFWwindow* window, int focused) { printf("window_focus_callback \n"); }
-
-static void window_iconify_callback(GLFWwindow* window, int iconified) { printf("window_iconify_callback \n"); }
-
-static void window_size_callback(GLFWwindow* window, int width, int height) {
-	printf("resize %d, %d \n", width, height);
-	glViewport(0, 0, width, height);
-}
-
-static void cursor_callback(GLFWwindow* window, double x, double y) { printf("cursor_callback \n"); }
-
-static void button_callback(GLFWwindow* window, int button, int action, int mode) {
-	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
-}
-
-
 //GLM test
 
 // Projection matrix : 45� Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
@@ -93,9 +48,7 @@ glm::mat4 Model = glm::mat4(1.0f);
 
 int main(void)
 {
-
 	//GLFWwindow* window;
-
 	Window win = Window::WindowBuilder("ZPG")
 		.SetOpenGLVersion(3,3)
 		.SetSize(800,600)
@@ -113,16 +66,25 @@ int main(void)
 
 	auto VAO = vao->GetVAO();
 
-	//create and compile shaders
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
-	glCompileShader(vertexShader);
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
-	glCompileShader(fragmentShader);
+
+	VertexShader vso = VertexShader();
+
+	vso.CreateShader();
+
+	GLuint vertexShader = vso.GetShader();
+
+	FragmentShader fso = FragmentShader();
+
+	fso.CreateShader();
+
+	GLuint fragmentShader = fso.GetShader();
+
 	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, fragmentShader);
-	glAttachShader(shaderProgram, vertexShader);
+
+	vso.AttachShader(&shaderProgram);
+	fso.AttachShader(&shaderProgram);
+
+
 	glLinkProgram(shaderProgram);
 
 	while (!glfwWindowShouldClose(window)) {
@@ -138,12 +100,7 @@ int main(void)
 		glfwSwapBuffers(window);
 	}
 
-	glfwDestroyWindow(window);
-	glfwTerminate();
 	exit(EXIT_SUCCESS);
-
-
-
 }
 
 
