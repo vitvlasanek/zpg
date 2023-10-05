@@ -1,5 +1,10 @@
 #include "FragmentShader.h"
 
+FragmentShader::FragmentShader()
+{
+	this->CreateShader();
+}
+
 void FragmentShader::CreateShader()
 {
 	this->shader_code =

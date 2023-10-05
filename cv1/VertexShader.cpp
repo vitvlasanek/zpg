@@ -1,5 +1,10 @@
 #include "VertexShader.h"
 
+VertexShader::VertexShader()
+{
+	this->CreateShader();
+}
+
 void VertexShader::CreateShader()
 {
 

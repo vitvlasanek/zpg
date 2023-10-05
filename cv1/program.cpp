@@ -22,6 +22,7 @@
 #include "VertexShader.h"
 #include "VertexBufferObject.h"
 #include "VertexArrayObject.h"
+#include "ApplicationBuilder.h"
 
 
 float points[] = {
@@ -29,6 +30,7 @@ float points[] = {
 	0.5f, -0.5f, 0.0f,
    -0.5f, -0.5f, 0.0f
 };
+
 
 
 //GLM test
@@ -48,7 +50,13 @@ glm::mat4 Model = glm::mat4(1.0f);
 
 int main(void)
 {
-	//GLFWwindow* window;
+
+
+	//auto app = new ApplicationBuilder();
+
+	//app->Initialize().CreateModels().CreateShaders().Run();
+
+
 	Window win = Window::WindowBuilder("ZPG")
 		.SetOpenGLVersion(3,3)
 		.SetSize(800,600)
@@ -68,15 +76,9 @@ int main(void)
 
 
 	VertexShader vso = VertexShader();
-
-	vso.CreateShader();
-
 	GLuint vertexShader = vso.GetShader();
 
 	FragmentShader fso = FragmentShader();
-
-	fso.CreateShader();
-
 	GLuint fragmentShader = fso.GetShader();
 
 	GLuint shaderProgram = glCreateProgram();
@@ -100,6 +102,8 @@ int main(void)
 		glfwSwapBuffers(window);
 	}
 
+
+	//delete(app);
 	exit(EXIT_SUCCESS);
 }
 

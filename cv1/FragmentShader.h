@@ -3,6 +3,8 @@
 class FragmentShader : public ShaderBase
 {
 public:
+	FragmentShader();
+private:
 	// Inherited via Shader
 	void CreateShader() override;
 };

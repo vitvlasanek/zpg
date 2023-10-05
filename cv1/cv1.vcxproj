@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\vit.vlasanek\source\repos\zpg\glew-2.1.0\include;C:\Users\vit.vlasanek\source\repos\zpg\glm-master;C:\Users\vit.vlasanek\source\repos\zpg\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glew-2.1.0\include;$(SolutionDir)glm-master;$(SolutionDir)glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,9 +130,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ApplicationBuilder.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="FragmentShader.cpp" />
-    <ClCompile Include="GlObject.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="program.cpp" />
     <ClCompile Include="ShaderBase.cpp" />
     <ClCompile Include="VertexArrayObject.cpp" />
@@ -142,9 +144,11 @@
     <ClCompile Include="WindowBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ApplicationBuilder.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="FragmentShader.h" />
-    <ClInclude Include="GlObject.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="ShaderBase.h" />
     <ClInclude Include="VertexArrayObject.h" />
     <ClInclude Include="VertexBufferObject.h" />
