@@ -130,35 +130,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ApplicationBuilder.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="DrawableObject.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="Transformation.cpp" />
+    <ClCompile Include="FragmentShader.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="program.cpp" />
+    <ClCompile Include="ShaderBase.cpp" />
     <ClCompile Include="VertexArrayObject.cpp" />
     <ClCompile Include="VertexBufferObject.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h" />
+    <ClInclude Include="ApplicationBuilder.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="DrawableObject.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="Sphere.h" />
-    <ClInclude Include="Transformation.h" />
+    <ClInclude Include="FragmentShader.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="ShaderBase.h" />
     <ClInclude Include="VertexArrayObject.h" />
     <ClInclude Include="VertexBufferObject.h" />
+    <ClInclude Include="VertexShader.h" />
     <ClInclude Include="Window.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="default.frag" />
-    <None Include="default.vert" />
+    <ClInclude Include="WindowBuilder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

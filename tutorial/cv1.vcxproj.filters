@@ -13,17 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\new">
-      <UniqueIdentifier>{3a7b545d-4574-45a1-8955-b3ef79d2cad6}</UniqueIdentifier>
+    <Filter Include="Header Files\Shaders">
+      <UniqueIdentifier>{22e453e8-8957-49b2-8de9-e2deb1b37d70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\new">
-      <UniqueIdentifier>{078913e5-552b-4d10-a6e4-79c8585fd7e3}</UniqueIdentifier>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{f1f15880-8d37-4dbf-8db3-447740311a01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Shaders">
-      <UniqueIdentifier>{5862679d-d399-4b8c-9fe0-93ea1392aea0}</UniqueIdentifier>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{daf1edad-8d8a-40ae-8295-fbc1596abaf1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Textures">
-      <UniqueIdentifier>{5aabfa15-f912-408b-bc1d-e086c1338da5}</UniqueIdentifier>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{234b1027-77e5-482f-ae14-81d206ad12ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,28 +39,28 @@
     <ClCompile Include="WindowBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FragmentShader.cpp">
+      <Filter>Source Files\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Source Files\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderBase.cpp">
+      <Filter>Source Files\Shaders</Filter>
+    </ClCompile>
     <ClCompile Include="VertexBufferObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VertexArrayObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\new</Filter>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Source Files\new</Filter>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
-    <ClCompile Include="DrawableObject.cpp">
-      <Filter>Source Files\new</Filter>
-    </ClCompile>
-    <ClCompile Include="Transformation.cpp">
-      <Filter>Source Files\new</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files\new</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="ApplicationBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,40 +71,32 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WindowBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FragmentShader.h">
+      <Filter>Header Files\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>Header Files\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderBase.h">
+      <Filter>Header Files\Shaders</Filter>
+    </ClInclude>
     <ClInclude Include="VertexBufferObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VertexArrayObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Transformation.h">
-      <Filter>Header Files\new</Filter>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="DrawableObject.h">
-      <Filter>Header Files\new</Filter>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\new</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderProgram.h">
-      <Filter>Header Files\new</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="ApplicationBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Header Files\new</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="default.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="default.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>

@@ -9,10 +9,16 @@
 ApplicationBuilder& ApplicationBuilder::Initialize()
 {
 
+	const float b[] = {
+	 -.5f, -.5f, .5f,   1, 1, 0,
+	 -.5f, .5f, .5f,  1, 0, 0,
+	   .5f, .5f, .5f,  0, 0, 0,
+	   .5f, -.5f, .5f,  0, 1, 0 };
+
 	float points[] = {
 	0.0f, 0.5f, 0.0f,
 	0.5f, -0.5f, 0.0f,
-   -0.5f, -0.5f, 0.0f
+	-0.5f, -0.5f, 0.0f
 	};
 	Window win = Window::WindowBuilder("ZPG")
 		.SetOpenGLVersion(3, 3)
@@ -30,7 +36,7 @@ ApplicationBuilder& ApplicationBuilder::Initialize()
 	VertexArrayObject* vao = new VertexArrayObject();
 
 	this->VAO_ = vao->GetVAO();
-	return * this;
+	return *this;
 }
 
 ApplicationBuilder& ApplicationBuilder::CreateShaders()
@@ -72,4 +78,22 @@ void ApplicationBuilder::Run()
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(this->window_);
 	}
+}
+
+
+
+void ApplicationBuilder::window_focus_callback(int focused)
+{
+	printf("window_focus_callback \n");
+}
+
+void ApplicationBuilder::window_iconify_callback(int iconified)
+{
+	printf("window_iconify_callback \n");
+}
+
+void ApplicationBuilder::window_size_callback(int width, int height)
+{
+	printf("resize %d, %d \n", width, height);
+	glViewport(0, 0, width, height);
 }

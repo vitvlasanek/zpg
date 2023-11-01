@@ -4,9 +4,12 @@
 class VertexBufferObject
 {
 public:
-	VertexBufferObject();
+	VertexBufferObject(const GLvoid* data, GLsizeiptr size, GLenum usage);
 	~VertexBufferObject();
-	void Bind(GLsizeiptr size, const GLvoid* data, GLenum usage);
+	void Bind();
+	GLuint id;
+	
+	void Unbind();
+	void Delete();
 private:
-	GLuint vbo_;
 };

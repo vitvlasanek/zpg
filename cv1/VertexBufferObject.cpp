@@ -1,19 +1,29 @@
 #include "VertexBufferObject.h"
 
 
-VertexBufferObject::VertexBufferObject()
+VertexBufferObject::VertexBufferObject(const GLvoid* data, GLsizeiptr size, GLenum usage)
 {
-	vbo_ = 0;
-	glGenBuffers(1, &vbo_);
+	glGenBuffers(1, &id);
+	glBindBuffer(GL_ARRAY_BUFFER, this->id);
+	glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 }
 
 VertexBufferObject::~VertexBufferObject()
 {
-	glDeleteBuffers(1, &vbo_);
+	glDeleteBuffers(1, &id);
 }
 
-void VertexBufferObject::Bind(GLsizeiptr size, const GLvoid* data, GLenum usage)
+void VertexBufferObject::Bind()
 {
-	glBindBuffer(GL_ARRAY_BUFFER, this->vbo_);
-	glBufferData(GL_ARRAY_BUFFER, size, data, usage);
+	glBindBuffer(GL_ARRAY_BUFFER, this->id);
+}
+
+void VertexBufferObject::Unbind()
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void VertexBufferObject::Delete()
+{
+	glDeleteBuffers(1, &id);
 }

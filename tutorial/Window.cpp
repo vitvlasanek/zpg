@@ -62,11 +62,11 @@ Window::Window(const WindowBuilder& builder)
 	glfwSwapInterval(1);
 
 	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK)
+	if (!glewInit())
 	{
 		fprintf(stderr, "Failed to initialize GLEW\n");
-		glfwTerminate();
-		exit(EXIT_FAILURE);
+		//glfwTerminate();
+		//exit(EXIT_FAILURE);
 	}
 
 }
@@ -91,18 +91,6 @@ Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, G
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-
-	glfwMakeContextCurrent(this->window_);
-	glfwSwapInterval(1);
-
-	glewExperimental = GL_TRUE;
-	if (!glewInit())
-	{
-		fprintf(stderr, "Failed to initialize GLEW\n");
-		//glfwTerminate();
-		//exit(EXIT_FAILURE);
-	}
 }
 
 void Window::SetWindow(GLFWwindow* window)
