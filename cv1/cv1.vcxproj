@@ -145,13 +145,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="bushes.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawableObject.h" />
+    <ClInclude Include="gift.h" />
+    <ClInclude Include="plain.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="suzi_flat.h" />
+    <ClInclude Include="suzi_smooth.h" />
     <ClInclude Include="Transformation.h" />
+    <ClInclude Include="tree.h" />
     <ClInclude Include="VertexArrayObject.h" />
     <ClInclude Include="VertexBufferObject.h" />
     <ClInclude Include="Window.h" />
@@ -159,6 +165,10 @@
   <ItemGroup>
     <None Include="default.frag" />
     <None Include="default.vert" />
+    <None Include="light.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="light.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
