@@ -13,9 +13,10 @@ Camera::Camera(int width, int height, glm::vec3 position)
 	Position = position;
 }
 
+
+//Deprecated: moved to shader, which now sets itself
 void Camera::Matrix(Shader& shader, const char* uniform)
 {
-
 	// Exports the camera matrix to the Vertex Shader
 	glUniformMatrix4fv(glGetUniformLocation(shader.Id, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }
@@ -31,7 +32,7 @@ void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 	// Adds perspective to the scene
 	projection = glm::perspective(glm::radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
-	cameraMatrix = projection * view;
+	this->cameraMatrix = projection * view;
 }
 
 
@@ -63,6 +64,7 @@ void Camera::Inputs(GLFWwindow* window)
 	{
 		Position += speed * -Up;
 	}
+
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
 		speed = 0.4f;

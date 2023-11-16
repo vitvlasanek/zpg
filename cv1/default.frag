@@ -1,42 +1,48 @@
 #version 330 core
 
-// Outputs colors in RGBA
+in vec3 FragPos;
+in vec3 Normal;
+
 out vec4 FragColor;
 
+#define MAX_LIGHTS 4  // Adjust this based on your application's needs
 
-// Imports the color from the Vertex Shader
-in vec3 color;
-// Imports the texture coordinates from the Vertex Shader
-in vec2 texCoord;
-// Imports the normal from the Vertex Shader
-in vec3 Normal;
-// Imports the current position from the Vertex Shader
-in vec3 crntPos;
+struct Light {
+    vec3 position;
+    vec3 color;
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
 
-// Gets the color of the light from the main function
-uniform vec4 lightColor;
-// Gets the position of the light from the main function
-uniform vec3 lightPos;
-// Gets the position of the camera from the main function
-uniform vec3 camPos;
+uniform vec3 viewPos;
+uniform Light lights[MAX_LIGHTS];
+uniform int numLights;  // Number of active lights
 
 void main()
 {
-	// ambient lighting
-	float ambient = 0.20f;
+    vec3 result = vec3(0.0);
 
-	// diffuse lighting
-	vec3 normal = normalize(Normal);
-	vec3 lightDirection = normalize(lightPos - crntPos);
-	float diffuse = max(dot(normal, lightDirection), 0.0f);
+    for (int i = 0; i < numLights; ++i) {
+        // Ambient
+        vec3 ambient = lights[i].ambient * lights[i].color;
 
-	// specular lighting
-	float specularLight = 0.50f;
-	vec3 viewDirection = normalize(camPos - crntPos);
-	vec3 reflectionDirection = reflect(-lightDirection, normal);
-	float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 8);
-	float specular = specAmount * specularLight;
+        // Diffuse
+        vec3 norm = normalize(Normal);
+        vec3 lightDir = normalize(lights[i].position - FragPos);
+        float diff = max(dot(norm, lightDir), 0.0);
+        vec3 diffuse = lights[i].diffuse * diff * lights[i].color;
 
-	// outputs final color
-	FragColor = lightColor * (diffuse + ambient + specular);
+        // Specular
+        float specularStrength = 0.5; // Adjust this value as needed
+        vec3 viewDir = normalize(viewPos - FragPos);
+        vec3 reflectDir = reflect(-lightDir, norm);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0); // Shininess factor
+        vec3 specular = lights[i].specular * (spec * specularStrength) * lights[i].color;
+
+        // Accumulate lighting contributions from each light
+        result += ambient + diffuse + specular;
+    }
+
+    FragColor = vec4(result, 1.0);
 }

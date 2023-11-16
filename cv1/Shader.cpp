@@ -3,6 +3,8 @@
 # include "Camera.h"
 Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
+	this->cam = c;
+
 	std::string vertexCode = GetShaderCode(vertexFile);
 	std::string fragmentCode = GetShaderCode(fragmentFile);
 	
@@ -21,7 +23,7 @@ Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 	glCompileShader(fragmentShader);
-	CompileErrors(vertexShader, "FRAGMENT", GL_COMPILE_STATUS);
+	CompileErrors(fragmentShader, "FRAGMENT", GL_COMPILE_STATUS);
 
 	this->Id = glCreateProgram();
 	CompileErrors(Id, "PROGRAM", GL_COMPILE_STATUS);
@@ -49,6 +51,42 @@ void Shader::Delete()
 {
 	glDeleteProgram(this->Id);
 }
+
+void Shader::SetLights(Light* lights, const int numLights)
+{
+	glUniform1i(GetUniformLocation("numLights"), numLights);
+
+	for (int i = 0; i < numLights; i++)
+	{
+		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(lights[i].position));
+		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].color"), 1, glm::value_ptr(lights[i].color));
+		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].ambient"), 1, glm::value_ptr(lights[i].ambient));
+		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].diffuse"), 1, glm::value_ptr(lights[i].diffuse));
+		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].specular"), 1, glm::value_ptr(lights[i].specular));
+	}
+}
+
+void Shader::SetCamera()
+{
+	glUniformMatrix4fv(GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cam->cameraMatrix));
+}
+
+GLint Shader::GetUniformLocation(const std::string& name)
+{
+	//map iterator
+	auto it = uniformLocations.find(name);
+
+	//if found then return
+	if (it != uniformLocations.end()) {
+		return it->second;
+	}
+
+	GLint location = glGetUniformLocation(this->Id, name.c_str());
+	uniformLocations[name] = location;
+
+	return location;
+}
+
 
 std::string Shader::GetShaderCode(const char* filename)
 {

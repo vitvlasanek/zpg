@@ -21,7 +21,12 @@
 #include <sstream>
 #include <cerrno>
 #include <fstream>
+#include <map>
 
+#include "light.h"
+
+
+#define MAX_LIGHTS 10
 
 // ------- Shader .h ------
 // dopredna deklarace
@@ -30,11 +35,15 @@ class Shader {
 private:
 	Camera* cam;
 	std::string GetShaderCode(const char* filename);
+	std::map<std::string, GLint> uniformLocations;
 	void CompileErrors(GLuint shader, const char* type, GLenum pname);
+	GLint GetUniformLocation(const std::string& name);
 public:
 	GLuint Id;
 	Shader(Camera* c, const char* vertexFile, const char* fragmentFile);
 	Shader(Camera* c);
 	void Activate();
 	void Delete();
+	void SetLights(Light* lights, int numLights);
+	void SetCamera();
 };
