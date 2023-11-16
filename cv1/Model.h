@@ -17,10 +17,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "VertexArrayObject.h"
+
 class Model
 {
 public:
+	Model(const GLfloat* vertices, const GLsizeiptr numVertices);
+	void Initialize();
+	void Delete();
+	void Bind();
+	void Unbind();
+	GLsizeiptr GetNumVertices();
+	~Model();
 
 private:
+	VertexArrayObject vao_;
+	VertexBufferObject vbo_;
+
+	const GLfloat* verticies_;
+	GLsizeiptr numVertices_;
 };
 

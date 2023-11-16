@@ -25,6 +25,15 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{5aabfa15-f912-408b-bc1d-e086c1338da5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Transformations">
+      <UniqueIdentifier>{58940002-6c67-40b6-b7a8-59005dac9b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Transformation">
+      <UniqueIdentifier>{498a68ec-b6b1-48ea-8298-dc1adce35158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{24e18d06-ea5a-46a2-a93c-f6fccaac68b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program.cpp">
@@ -51,17 +60,23 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\new</Filter>
     </ClCompile>
-    <ClCompile Include="DrawableObject.cpp">
-      <Filter>Source Files\new</Filter>
-    </ClCompile>
-    <ClCompile Include="Transformation.cpp">
-      <Filter>Source Files\new</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Source Files\new</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Transformation.cpp">
+      <Filter>Source Files\Transformations</Filter>
+    </ClCompile>
+    <ClCompile Include="Rotation.cpp">
+      <Filter>Source Files\Transformations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,20 +92,11 @@
     <ClInclude Include="VertexArrayObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Transformation.h">
-      <Filter>Header Files\new</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableObject.h">
-      <Filter>Header Files\new</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\new</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files\new</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Header Files\new</Filter>
@@ -98,26 +104,47 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bushes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gift.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="plain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="suzi_flat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="suzi_smooth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="light.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transformation.h">
+      <Filter>Header Files\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformationComponent.h">
+      <Filter>Header Files\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
+      <Filter>Header Files\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="Scaling.h">
+      <Filter>Header Files\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="bushes.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="gift.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="suzi_flat.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="suzi_smooth.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="plain.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

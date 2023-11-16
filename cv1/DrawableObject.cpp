@@ -1,24 +1,13 @@
 #include "DrawableObject.h"
 
-DrawableObject::DrawableObject(const float* vertices, const int numVertices)
-	: vbo(vertices, numVertices, GL_STATIC_DRAW)
+DrawableObject::DrawableObject(Model* model)
 {
-	this->usedModel = vertices;
-	this->modelSize = numVertices;
+	this->model_ = model;
 }
 
 void DrawableObject::Initialize()
 {
-
-	vao.Bind();
-	// Links VertexBufferObject to VertexArrayObject
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	vao.LinkVBO(vbo, 0, 3, GL_FLOAT, 6 * sizeof(GLfloat), (GLvoid*)0);
-	vao.LinkVBO(vbo, 1, 3, GL_FLOAT, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	// Unbind all to prevent accidentally modifying them
-	vao.Unbind();
-	vbo.Unbind();
+	this->model_->Initialize();
 }
 
 void DrawableObject::Translate(const glm::vec3& translation) {
@@ -38,12 +27,11 @@ void DrawableObject::Scale(const glm::vec3& scale)
 
 void DrawableObject::Delete()
 {
-	vao.Delete();
-	vbo.Delete();
+	this->model_->Delete();
 }
 
 void DrawableObject::Draw()
 {
-	vao.Bind();
-	glDrawArrays(GL_TRIANGLES, 0, modelSize / (sizeof(GLfloat) * 6));
+	model_->Bind();
+	glDrawArrays(GL_TRIANGLES, 0, model_->GetNumVertices() / (sizeof(GLfloat) * 6));
 }

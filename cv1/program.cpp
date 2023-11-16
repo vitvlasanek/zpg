@@ -45,8 +45,11 @@ int main()
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 	Shader shaderProgram(&camera, "default.vert", "default.frag");
 
-	DrawableObject monke = DrawableObject(usedModel, modelSize);
-	monke.Initialize();
+
+	Model monke = Model(usedModel, modelSize);
+
+	DrawableObject dm = DrawableObject(&monke);
+	dm.Initialize();
 
 	Light lights[1];
 	lights[0].position = glm::vec3(1.0f, 2.0f, 2.0f);
@@ -94,7 +97,7 @@ int main()
 
 		shaderProgram.SetLights(lights, 1);
 
-		monke.Draw();
+		dm.Draw();
 
 		glfwSwapBuffers(win.GetWindow());
 		glfwPollEvents();

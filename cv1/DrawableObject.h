@@ -7,11 +7,12 @@
 
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
+#include "Model.h"
 
 class DrawableObject
 {
 public:
-	DrawableObject(const float* vertices, int numVertices);
+	DrawableObject(Model* model);
 	void Initialize();
 	void Translate(const glm::vec3& tranlation);
 	void Rotate(const glm::vec3& rotation);
@@ -21,9 +22,6 @@ public:
 
 private:
 	glm::mat4 modelMatrix;
-	VertexArrayObject vao;
-	VertexBufferObject vbo;
-	const GLfloat * usedModel;
-	GLsizeiptr modelSize;
+	Model* model_;
 };
 
