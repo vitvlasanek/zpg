@@ -5,8 +5,8 @@ Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
 	this->cam = c;
 
-	std::string vertexCode = GetShaderCode(vertexFile);
-	std::string fragmentCode = GetShaderCode(fragmentFile);
+	string vertexCode = GetShaderCode(vertexFile);
+	string fragmentCode = GetShaderCode(fragmentFile);
 	
 	const char * vertexSource = vertexCode.c_str();
 	const char * fragmentSource = fragmentCode.c_str();
@@ -58,11 +58,11 @@ void Shader::SetLights(Light* lights, const int numLights)
 
 	for (int i = 0; i < numLights; i++)
 	{
-		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(lights[i].position));
-		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].color"), 1, glm::value_ptr(lights[i].color));
-		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].ambient"), 1, glm::value_ptr(lights[i].ambient));
-		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].diffuse"), 1, glm::value_ptr(lights[i].diffuse));
-		glUniform3fv(GetUniformLocation("lights[" + std::to_string(i) + "].specular"), 1, glm::value_ptr(lights[i].specular));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].position"), 1, glm::value_ptr(lights[i].position));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].color"), 1, glm::value_ptr(lights[i].color));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].ambient"), 1, glm::value_ptr(lights[i].ambient));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].diffuse"), 1, glm::value_ptr(lights[i].diffuse));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].specular"), 1, glm::value_ptr(lights[i].specular));
 	}
 }
 
@@ -71,7 +71,12 @@ void Shader::SetCamera()
 	glUniformMatrix4fv(GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cam->cameraMatrix));
 }
 
-GLint Shader::GetUniformLocation(const std::string& name)
+void Shader::Update()
+{
+	cout << "Shader updated";
+}
+
+GLint Shader::GetUniformLocation(const string& name)
 {
 	//map iterator
 	auto it = uniformLocations.find(name);
@@ -88,15 +93,15 @@ GLint Shader::GetUniformLocation(const std::string& name)
 }
 
 
-std::string Shader::GetShaderCode(const char* filename)
+string Shader::GetShaderCode(const char* filename)
 {
-	std::ifstream stream(filename, std::ios::binary);
+	ifstream stream(filename, ios::binary);
 	if (stream)
 	{
-		std::string contents;
-		stream.seekg(0, std::ios::end);
+		string contents;
+		stream.seekg(0, ios::end);
 		contents.resize(stream.tellg());
-		stream.seekg(0, std::ios::beg);
+		stream.seekg(0, ios::beg);
 		stream.read(&contents[0], contents.size());
 		stream.close();
 		return contents;

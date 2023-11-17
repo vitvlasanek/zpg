@@ -5,9 +5,11 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
+using namespace glm;
+
 class TransformationComponent
 {
 public:
-	virtual glm::mat4 GetMatrix() const = 0;
+	virtual mat4 GetMatrix() const = 0;
 };
 

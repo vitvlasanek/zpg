@@ -2,14 +2,18 @@
 #include <vector>
 
 #include "TransformationComponent.h"
+
+using namespace glm;
+using namespace std;
+
 class Transformation : public TransformationComponent
 {
 public:
 
 	// Inherited via TransformationComponent
-	glm::mat4 GetMatrix() const override;
+	mat4 GetMatrix() const override;
 	void AddTransformation(TransformationComponent* transformation);
 private:
-	std::vector<TransformationComponent*> components;
+	vector<TransformationComponent*> components;
 };
 

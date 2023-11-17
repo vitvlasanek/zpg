@@ -28,11 +28,14 @@
     <Filter Include="Source Files\Transformations">
       <UniqueIdentifier>{58940002-6c67-40b6-b7a8-59005dac9b1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Transformation">
+    <Filter Include="Header Files\Transformations">
       <UniqueIdentifier>{498a68ec-b6b1-48ea-8298-dc1adce35158}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Models">
+    <Filter Include="Resource Files\Models">
       <UniqueIdentifier>{24e18d06-ea5a-46a2-a93c-f6fccaac68b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ObserverPattern">
+      <UniqueIdentifier>{8857f45b-d7b3-418f-83f6-bfb5f73f966f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +81,9 @@
     <ClCompile Include="Rotation.cpp">
       <Filter>Source Files\Transformations</Filter>
     </ClCompile>
+    <ClCompile Include="Translation.cpp">
+      <Filter>Source Files\Transformations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -114,37 +120,46 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Transformation.h">
-      <Filter>Header Files\Transformation</Filter>
+      <Filter>Header Files\Transformations</Filter>
     </ClInclude>
     <ClInclude Include="TransformationComponent.h">
-      <Filter>Header Files\Transformation</Filter>
+      <Filter>Header Files\Transformations</Filter>
     </ClInclude>
     <ClInclude Include="Rotation.h">
-      <Filter>Header Files\Transformation</Filter>
+      <Filter>Header Files\Transformations</Filter>
     </ClInclude>
     <ClInclude Include="Scaling.h">
-      <Filter>Header Files\Transformation</Filter>
+      <Filter>Header Files\Transformations</Filter>
     </ClInclude>
     <ClInclude Include="bushes.h">
-      <Filter>Header Files\Models</Filter>
+      <Filter>Resource Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="gift.h">
-      <Filter>Header Files\Models</Filter>
+      <Filter>Resource Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="Sphere.h">
-      <Filter>Header Files\Models</Filter>
+      <Filter>Resource Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="suzi_flat.h">
-      <Filter>Header Files\Models</Filter>
+      <Filter>Resource Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="suzi_smooth.h">
-      <Filter>Header Files\Models</Filter>
+      <Filter>Resource Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="tree.h">
-      <Filter>Header Files\Models</Filter>
+      <Filter>Resource Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="plain.h">
-      <Filter>Header Files\Models</Filter>
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Translation.h">
+      <Filter>Header Files\Transformations</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files\ObserverPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files\ObserverPattern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

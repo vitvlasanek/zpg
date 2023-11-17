@@ -1,13 +1,14 @@
 #pragma once
 #include "TransformationComponent.h"
-class Rotation :
+
+class Translation :
     public TransformationComponent
 {
-    Rotation(const vec3 rotation);
     // Inherited via TransformationComponent
     mat4 GetMatrix() const override;
-
+public:
+    Translation(vec3 translation);
 private:
-    vec3 rotation_;
+    vec3 translation_;
 };
 

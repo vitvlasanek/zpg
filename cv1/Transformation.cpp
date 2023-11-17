@@ -1,8 +1,8 @@
 #include "Transformation.h"
 
-glm::mat4 Transformation::GetMatrix() const
+mat4 Transformation::GetMatrix() const
 {
-	glm::mat4 resultMatrix(1.0f);
+	mat4 resultMatrix(1.0f);
 
 	for (const TransformationComponent * component : components) {
 		resultMatrix *= component->GetMatrix();

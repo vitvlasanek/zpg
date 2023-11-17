@@ -24,20 +24,23 @@
 #include <map>
 
 #include "light.h"
-
+#include "Observer.h"
 
 #define MAX_LIGHTS 10
+
+using namespace std;
 
 // ------- Shader .h ------
 // dopredna deklarace
 class Camera;
-class Shader {
+class Shader : public Observer
+{
 private:
 	Camera* cam;
-	std::string GetShaderCode(const char* filename);
-	std::map<std::string, GLint> uniformLocations;
+	string GetShaderCode(const char* filename);
+	map<string, GLint> uniformLocations;
 	void CompileErrors(GLuint shader, const char* type, GLenum pname);
-	GLint GetUniformLocation(const std::string& name);
+	GLint GetUniformLocation(const string& name);
 public:
 	GLuint Id;
 	Shader(Camera* c, const char* vertexFile, const char* fragmentFile);
@@ -46,4 +49,7 @@ public:
 	void Delete();
 	void SetLights(Light* lights, int numLights);
 	void SetCamera();
+
+	// Inherited via Observer
+	void Update() override;
 };
