@@ -1,5 +1,6 @@
 #pragma once
 #include "TransformationComponent.h"
+
 class Scaling :
     public TransformationComponent
 {
@@ -14,4 +15,3 @@ public:
 private:
     glm::vec3 scale;
 };
-

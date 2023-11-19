@@ -15,11 +15,11 @@ Camera::Camera(int width, int height, vec3 position)
 
 
 //Deprecated: moved to shader, which now sets itself
-void Camera::Matrix(Shader& shader, const char* uniform)
-{
-	// Exports the camera matrix to the Vertex Shader
-	glUniformMatrix4fv(glGetUniformLocation(shader.Id, uniform), 1, GL_FALSE, value_ptr(cameraMatrix));
-}
+//void Camera::Matrix(Shader& shader, const char* uniform)
+//{
+//	// Exports the camera matrix to the Vertex Shader
+//	glUniformMatrix4fv(glGetUniformLocation(shader.Id, uniform), 1, GL_FALSE, value_ptr(cameraMatrix));
+//}
 
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 {

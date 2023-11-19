@@ -45,6 +45,7 @@ int main()
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 	Shader shaderProgram(&camera, "default.vert", "default.frag");
 
+	camera.Attach(&shaderProgram);
 
 	Model monke = Model(usedModel, modelSize);
 
@@ -58,42 +59,22 @@ int main()
 	lights[0].diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
 	lights[0].specular = glm::vec3(1.0f, 1.0f, 1.0f);
 
-
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
 	glm::vec3 objectColor(0.5f, 0.5f, 0.5f);
-
-	GLint modelLoc = glGetUniformLocation(shaderProgram.Id, "model");
-	GLint viewLoc = glGetUniformLocation(shaderProgram.Id, "view");
-	GLint projectionLoc = glGetUniformLocation(shaderProgram.Id, "projection");
-	GLint viewPosLoc = glGetUniformLocation(shaderProgram.Id, "viewPos");
-
-
 
 	GLfloat rotation = 0.0f;
 	double prevTime = glfwGetTime();
 	glEnable(GL_DEPTH_TEST);
 
 	while (!glfwWindowShouldClose(win.GetWindow())) {
-		
-		float currentTime = glfwGetTime();
-		float objectX = sin(currentTime);
-		float objectY = cos(currentTime);
-
+	
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		camera.UpdateMatrix(45.0f, 0.1f, 100.0f);
 		shaderProgram.Activate();
 
 		camera.Inputs(win.GetWindow());
 		shaderProgram.SetCamera();
-
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-		glUniform3fv(viewPosLoc, 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 5.0f)));
 
 		shaderProgram.SetLights(lights, 1);
 

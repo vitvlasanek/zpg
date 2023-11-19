@@ -10,17 +10,17 @@ void DrawableObject::Initialize()
 	this->model_->Initialize();
 }
 
-void DrawableObject::Translate(const glm::vec3& translation) {
-	modelMatrix = glm::translate(modelMatrix, translation);
+void DrawableObject::Translate(const vec3& translation) {
+	modelMatrix = translate(modelMatrix, translation);
 }
 
-void DrawableObject::Rotate(const glm::vec3& rotation) {
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+void DrawableObject::Rotate(const vec3& rotation) {
+	modelMatrix = rotate(modelMatrix, radians(rotation.x), vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = rotate(modelMatrix, radians(rotation.y), vec3(0.0f, 1.0f, 0.0f));
+	modelMatrix = rotate(modelMatrix, radians(rotation.z), vec3(0.0f, 0.0f, 1.0f));
 }
 
-void DrawableObject::Scale(const glm::vec3& scale)
+void DrawableObject::Scale(const vec3& scale)
 {
 	modelMatrix = glm::scale(modelMatrix, scale);
 }
@@ -34,4 +34,5 @@ void DrawableObject::Draw()
 {
 	model_->Bind();
 	glDrawArrays(GL_TRIANGLES, 0, model_->GetNumVertices() / (sizeof(GLfloat) * 6));
+	model_->Unbind();
 }

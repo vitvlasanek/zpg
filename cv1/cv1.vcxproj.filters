@@ -152,14 +152,14 @@
     <ClInclude Include="plain.h">
       <Filter>Resource Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Translation.h">
-      <Filter>Header Files\Transformations</Filter>
-    </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Header Files\ObserverPattern</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Header Files\ObserverPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Translation.h">
+      <Filter>Header Files\Transformations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
