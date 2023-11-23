@@ -3,6 +3,7 @@
 DrawableObject::DrawableObject(Model* model)
 {
 	this->model_ = model;
+	this->modelMatrix = mat4(1.0f);
 }
 
 void DrawableObject::Initialize()
@@ -12,22 +13,29 @@ void DrawableObject::Initialize()
 
 void DrawableObject::Translate(const vec3& translation) {
 	modelMatrix = translate(modelMatrix, translation);
+	this->Notify();
 }
 
 void DrawableObject::Rotate(const vec3& rotation) {
 	modelMatrix = rotate(modelMatrix, radians(rotation.x), vec3(1.0f, 0.0f, 0.0f));
 	modelMatrix = rotate(modelMatrix, radians(rotation.y), vec3(0.0f, 1.0f, 0.0f));
 	modelMatrix = rotate(modelMatrix, radians(rotation.z), vec3(0.0f, 0.0f, 1.0f));
+	this->Notify();
 }
 
 void DrawableObject::Scale(const vec3& scale)
 {
 	modelMatrix = glm::scale(modelMatrix, scale);
+	this->Notify();
 }
 
 void DrawableObject::Delete()
 {
 	this->model_->Delete();
+}
+
+mat4 DrawableObject::GetModelMatrix() {
+	return this->modelMatrix;
 }
 
 void DrawableObject::Draw()

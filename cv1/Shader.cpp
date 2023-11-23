@@ -37,9 +37,7 @@ Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
 }
 
-Shader::Shader(Camera* c) : Shader(c, "default.frag", "default.vert")
-{
-}
+Shader::Shader(Camera* c) : Shader(c, "default.frag", "default.vert"){}
 
 
 void Shader::Activate()
@@ -69,28 +67,26 @@ void Shader::SetLights(Light* lights, const int numLights)
 void Shader::SetCamera()
 {
 	glUniformMatrix4fv(GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cam->cameraMatrix));
-
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-	//glm::mat4 viewMatrix = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//glm::mat4 projectionMatrix = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
 	glm::vec3 objectColor(0.5f, 0.5f, 0.5f);
-
-	GLint modelLoc = this->GetUniformLocation("model");
-	//GLint viewLoc = this->GetUniformLocation("view");
-	//GLint projectionLoc = this->GetUniformLocation("projection");
 	GLint viewPosLoc = this->GetUniformLocation("viewPos");
-
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-	//glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	glUniform3fv(viewPosLoc, 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 5.0f)));
+}
+
+void Shader::SetModels()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		mat4 modelMatrix = objects[i]->GetModelMatrix();
+		glUniformMatrix4fv(this->GetUniformLocation("model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		objects[i]->Draw();
+	}
 }
 
 void Shader::Update()
 {
 	cout << "Shader updated";
 	this->SetCamera();
+	this->SetModels();
 }
 
 GLint Shader::GetUniformLocation(const string& name)

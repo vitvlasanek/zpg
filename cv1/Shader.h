@@ -22,9 +22,11 @@
 #include <cerrno>
 #include <fstream>
 #include <map>
+#include <vector>
 
 #include "light.h"
 #include "Observer.h"
+#include "DrawableObject.h"
 
 #define MAX_LIGHTS 10
 
@@ -42,6 +44,7 @@ private:
 	void CompileErrors(GLuint shader, const char* type, GLenum pname);
 	GLint GetUniformLocation(const string& name);
 public:
+	vector<DrawableObject*> objects;
 	GLuint Id;
 	Shader(Camera* c, const char* vertexFile, const char* fragmentFile);
 	Shader(Camera* c);
@@ -49,6 +52,8 @@ public:
 	void Delete();
 	void SetLights(Light* lights, int numLights);
 	void SetCamera();
+
+	void SetModels();
 
 	// Inherited via Observer
 	void Update() override;

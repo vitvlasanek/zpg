@@ -8,10 +8,11 @@
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 #include "Model.h"
+#include "Subject.h"
 
 using namespace glm;
 
-class DrawableObject
+class DrawableObject : public Subject
 {
 public:
 	DrawableObject(Model* model);
@@ -20,6 +21,7 @@ public:
 	void Rotate(const vec3& rotation);
 	void Scale(const vec3& scale);
 	void Delete();
+	mat4 GetModelMatrix();
 	void Draw();
 
 private:

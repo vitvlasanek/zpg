@@ -20,13 +20,17 @@
 #include "Shader.h"
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
+#include "suzi_smooth.h"
+#include "plain.h"
+#include "Camera.h"
+
+
+
 class Application
 {
 public:
 	Application();
 	int Initialize();
-	void CreateShaders();
-	void CreateModels();
 	void Run();
 	void Delete();
 private:

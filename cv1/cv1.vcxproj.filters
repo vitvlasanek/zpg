@@ -63,9 +63,6 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\new</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files\new</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -83,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="Translation.cpp">
       <Filter>Source Files\Transformations</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +102,6 @@
       <Filter>Header Files\new</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
-      <Filter>Header Files\new</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
       <Filter>Header Files\new</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -161,12 +158,33 @@
     <ClInclude Include="Translation.h">
       <Filter>Header Files\Transformations</Filter>
     </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="default.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="phong.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="phong.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="lambert.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="lambert.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="blinn_phong.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="blinn_phong.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
