@@ -4,6 +4,7 @@ DrawableObject::DrawableObject(Model* model)
 {
 	this->model_ = model;
 	this->modelMatrix = mat4(1.0f);
+	this->color = vec3(1.0f, 0, 0.5f);
 }
 
 void DrawableObject::Initialize()
@@ -44,3 +45,9 @@ void DrawableObject::Draw()
 	glDrawArrays(GL_TRIANGLES, 0, model_->GetNumVertices() / (sizeof(GLfloat) * 6));
 	model_->Unbind();
 }
+
+void DrawableObject::Transform(Transformation& transformation)
+{
+	this->modelMatrix* transformation.GetMatrix();
+}
+

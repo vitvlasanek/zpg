@@ -78,6 +78,7 @@ void Shader::SetModels()
 	{
 		mat4 modelMatrix = objects[i]->GetModelMatrix();
 		glUniformMatrix4fv(this->GetUniformLocation("model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		glUniform3fv(GetUniformLocation("objectColor"), 1, glm::value_ptr(objects[i]->color));
 		objects[i]->Draw();
 	}
 }

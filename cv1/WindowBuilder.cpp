@@ -25,7 +25,7 @@ Window::WindowBuilder& Window::WindowBuilder::SetSize(int width, int height)
 	return *this;
 }
 
-Window Window::WindowBuilder::Build()
+Window * Window::WindowBuilder::Build()
 {
-	return Window(*this);
+	return new Window(*this);
 }

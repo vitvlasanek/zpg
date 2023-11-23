@@ -9,6 +9,7 @@
 #include "VertexBufferObject.h"
 #include "Model.h"
 #include "Subject.h"
+#include "Transformation.h"
 
 using namespace glm;
 
@@ -23,6 +24,8 @@ public:
 	void Delete();
 	mat4 GetModelMatrix();
 	void Draw();
+	vec3 color;
+	void Transform(Transformation& transformationMatrix);
 
 private:
 	mat4 modelMatrix;

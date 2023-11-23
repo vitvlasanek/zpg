@@ -57,9 +57,6 @@
     <ClCompile Include="VertexArrayObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\new</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\new</Filter>
     </ClCompile>
@@ -84,6 +81,9 @@
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -97,9 +97,6 @@
     </ClInclude>
     <ClInclude Include="VertexArrayObject.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\new</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files\new</Filter>
@@ -159,6 +156,9 @@
       <Filter>Header Files\Transformations</Filter>
     </ClInclude>
     <ClInclude Include="Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,7 @@ struct Light {
 uniform vec3 viewPos;
 uniform Light lights[MAX_LIGHTS];
 uniform int numLights;  // Number of active lights
+uniform vec3 objectColor;
 
 void main()
 {
@@ -41,7 +42,7 @@ void main()
         vec3 specular = lights[i].specular * (spec * specularStrength) * lights[i].color;
 
         // Accumulate lighting contributions from each light
-        result += ambient + diffuse + specular;
+        result += (ambient + diffuse + specular) * objectColor ;
     }
 
     FragColor = vec4(result, 1.0);

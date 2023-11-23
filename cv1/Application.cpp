@@ -19,16 +19,15 @@ int Application::Initialize()
 	const GLfloat* usedModel2 = plain;
 	const GLsizeiptr modelSize2 = sizeof(plain);
 
-	Window win = Window::WindowBuilder("zpg")
+	Window * win = Window::WindowBuilder("zpg")
 		.SetFullscreen(false)
 		.SetOpenGLVersion(3, 3)
 		.SetSize(width, height)
 		.Build();
 
-	// Generates Shader object using shaders defualt.vert and default.frag
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 	Shader shaderProgram(&camera, "phong.vert", "phong.frag");
-
+	
 	camera.Attach(&shaderProgram);
 
 	Model tree = Model(usedModel, modelSize);
@@ -38,11 +37,15 @@ int Application::Initialize()
 
 	DrawableObject * trees[10];
 
+	
 	for (int i = 0; i < 10; i++)
 	{
+		int xOffset = rand() % 20;
+		int yOffset = rand() % 20;
 		trees[i] = new DrawableObject(&tree);
+		trees[i]->color = vec3(0, 0, 1.0f);
 		trees[i]->Initialize();
-		trees[i]->Translate(glm::vec3(i, 0.0f, 0.0f));
+		trees[i]->Translate(glm::vec3(xOffset - 10, 0, yOffset -10));
 		trees[i]->Attach(&shaderProgram);
 		shaderProgram.objects.push_back(trees[i]);
 	}
@@ -51,6 +54,7 @@ int Application::Initialize()
 
 	DrawableObject dm2 = DrawableObject(&plain);
 	dm2.Initialize();
+	dm2.Scale(glm::vec3(10));
 
 	Light lights[1];
 	lights[0].position = glm::vec3(1.0f, 2.0f, 2.0f);
@@ -70,7 +74,7 @@ int Application::Initialize()
 	double prevTime = glfwGetTime();
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(win.GetWindow())) {
+	while (!glfwWindowShouldClose(win->GetWindow())) {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
@@ -79,10 +83,10 @@ int Application::Initialize()
 		camera.UpdateMatrix(45.0f, 0.1f, 100.0f);
 		shaderProgram.Activate();
 
-		camera.Inputs(win.GetWindow());
+		camera.Inputs(win->GetWindow());
 		shaderProgram.Update();
 
-		glfwSwapBuffers(win.GetWindow());
+		glfwSwapBuffers(win->GetWindow());
 		glfwPollEvents();
 	}
 

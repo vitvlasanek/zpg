@@ -13,7 +13,7 @@ public:
 		WindowBuilder& SetOpenGLVersion(int major, int minor);
 		WindowBuilder& SetFullscreen(bool useFullscreen);
 		WindowBuilder& SetSize(int width, int height);
-		Window Build();
+		Window * Build();
 	private:
 		const char* title_;
 		int width_ = 800;
@@ -33,6 +33,7 @@ public:
 	void SetWindow(GLFWwindow* window);
 	void GetInfo();
 	void Run(GLuint shader_program, GLuint VAO);
+	bool ShouldClose();
 
 private:
 	GLFWwindow* window_;
