@@ -104,13 +104,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glew-2.1.0\include;$(SolutionDir)glm-master;$(SolutionDir)glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)soil\include;$(SolutionDir)glew-2.1.0\include;$(SolutionDir)glm-master;C:\Users\vit.vlasanek\source\repos\zpg\assimp\include;$(SolutionDir)glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\vit.vlasanek\source\repos\zpg\glew-2.1.0\lib\Release\x64;C:\Users\vit.vlasanek\source\repos\zpg\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\vit.vlasanek\source\repos\zpg\assimp\lib\x64\v141\Release;C:\Users\vit.vlasanek\source\repos\zpg\soil\lib;C:\Users\vit.vlasanek\source\repos\zpg\glew-2.1.0\lib\Release\x64;C:\Users\vit.vlasanek\source\repos\zpg\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;SOIL.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,6 +138,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="SkinnedModel.cpp" />
     <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="program.cpp" />
     <ClCompile Include="Translation.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="SkinnedModel.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="suzi_flat.h" />
@@ -169,11 +171,13 @@
     <ClInclude Include="TransformationComponent.h" />
     <ClInclude Include="Translation.h" />
     <ClInclude Include="tree.h" />
+    <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexArrayObject.h" />
     <ClInclude Include="VertexBufferObject.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\models\tree\tree.mtl" />
     <None Include="blinn_phong.frag" />
     <None Include="blinn_phong.vert" />
     <None Include="default.frag" />
@@ -182,6 +186,14 @@
     <None Include="lambert.vert" />
     <None Include="phong.frag" />
     <None Include="phong.vert" />
+    <None Include="skydome.blend" />
+    <None Include="skydome.mtl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\models\tree\tree.png" />
+    <Image Include="fulldome3.jpg" />
+    <Image Include="skydome.png" />
+    <Image Include="wooden_fence.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

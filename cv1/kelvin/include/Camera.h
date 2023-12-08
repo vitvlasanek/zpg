@@ -7,11 +7,15 @@
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
 
+#include "Subject.h"
+
+using namespace glm;
 
 // ---- Camera .h ---
 // dopredna deklarace
 class Shader;
-class Camera {
+class Camera : public Subject
+{
 private:
 	Shader* sh;
 public:
@@ -20,10 +24,11 @@ public:
 	Camera();
 
 
-	glm::vec3 Position;
-	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 cameraMatrix = glm::mat4(1.0f);
+
+	vec3 Position;
+	vec3 Orientation = vec3(0.0f, 0.0f, -1.0f);
+	vec3 Up = vec3(0.0f, 1.0f, 0.0f);
+	mat4 cameraMatrix = mat4(1.0f);
 
 	// Prevents the camera from jumping around when first clicking left click
 	bool firstClick = true;
@@ -37,7 +42,7 @@ public:
 	float sensitivity = 100.0f;
 
 	// Camera constructor to set up initial values
-	Camera(int width, int height, glm::vec3 position);
+	Camera(int width, int height, vec3 position);
 
 	// Updates and exports the camera matrix to the Vertex Shader
 	void Matrix(Shader& shader, const char* uniform);

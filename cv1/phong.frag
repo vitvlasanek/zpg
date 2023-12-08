@@ -2,6 +2,7 @@
 
 in vec3 FragPos;
 in vec3 Normal;
+in vec2 TexCoord;
 
 out vec4 FragColor;
 
@@ -19,6 +20,7 @@ uniform vec3 viewPos;
 uniform Light lights[MAX_LIGHTS];
 uniform int numLights;  // Number of active lights
 uniform vec3 objectColor;
+uniform sampler2D uTexture;
 
 void main()
 {
@@ -41,8 +43,10 @@ void main()
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0); // Shininess factor
         vec3 specular = lights[i].specular * (spec * specularStrength) * lights[i].color;
 
+        vec3 textureColor = texture(uTexture, TexCoord).xyz;
+
         // Accumulate lighting contributions from each light
-        result += (ambient + diffuse + specular) * objectColor ;
+        result += (ambient + diffuse + specular) * textureColor * objectColor ;
     }
 
     FragColor = vec4(result, 1.0);

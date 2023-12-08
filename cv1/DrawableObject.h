@@ -8,8 +8,12 @@
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 #include "Model.h"
+#include "SkinnedModel.h"
 #include "Subject.h"
 #include "Transformation.h"
+#include "Translation.h"
+#include "Scaling.h"
+#include "Rotation.h"
 
 using namespace glm;
 
@@ -22,10 +26,12 @@ public:
 	void Rotate(const vec3& rotation);
 	void Scale(const vec3& scale);
 	void Delete();
+	void SetTexture(GLuint* texture);
 	mat4 GetModelMatrix();
 	void Draw();
 	vec3 color;
-	void Transform(Transformation& transformationMatrix);
+	GLuint* texture_;
+	void Transform(Transformation* transformationMatrix);
 
 private:
 	mat4 modelMatrix;

@@ -3,8 +3,10 @@
 # include "Camera.h"
 Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
-	std::string vertexCode = GetShaderCode(vertexFile);
-	std::string fragmentCode = GetShaderCode(fragmentFile);
+	this->cam = c;
+
+	string vertexCode = GetShaderCode(vertexFile);
+	string fragmentCode = GetShaderCode(fragmentFile);
 	
 	const char * vertexSource = vertexCode.c_str();
 	const char * fragmentSource = fragmentCode.c_str();
@@ -21,7 +23,7 @@ Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 	glCompileShader(fragmentShader);
-	CompileErrors(vertexShader, "FRAGMENT", GL_COMPILE_STATUS);
+	CompileErrors(fragmentShader, "FRAGMENT", GL_COMPILE_STATUS);
 
 	this->Id = glCreateProgram();
 	CompileErrors(Id, "PROGRAM", GL_COMPILE_STATUS);
@@ -35,9 +37,7 @@ Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
 }
 
-Shader::Shader(Camera* c) : Shader(c, "default.frag", "default.vert")
-{
-}
+Shader::Shader(Camera* c) : Shader(c, "default.frag", "default.vert"){}
 
 
 void Shader::Activate()
@@ -50,15 +50,70 @@ void Shader::Delete()
 	glDeleteProgram(this->Id);
 }
 
-std::string Shader::GetShaderCode(const char* filename)
+void Shader::SetLights(Light* lights, const int numLights)
 {
-	std::ifstream stream(filename, std::ios::binary);
+	glUniform1i(GetUniformLocation("numLights"), numLights);
+
+	for (int i = 0; i < numLights; i++)
+	{
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].position"), 1, glm::value_ptr(lights[i].position));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].color"), 1, glm::value_ptr(lights[i].color));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].ambient"), 1, glm::value_ptr(lights[i].ambient));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].diffuse"), 1, glm::value_ptr(lights[i].diffuse));
+		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].specular"), 1, glm::value_ptr(lights[i].specular));
+	}
+}
+
+void Shader::SetCamera()
+{
+	glUniformMatrix4fv(GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cam->cameraMatrix));
+	glUniform3fv(GetUniformLocation("viewPos"), 1, glm::value_ptr(this->cam->Position));
+}
+
+void Shader::SetModels()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		mat4 modelMatrix = objects[i]->GetModelMatrix();
+		glUniformMatrix4fv(this->GetUniformLocation("model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+		glUniform3fv(GetUniformLocation("objectColor"), 1, glm::value_ptr(objects[i]->color));
+		objects[i]->Draw();
+	}
+}
+
+void Shader::Update()
+{
+	cout << "Shader updated";
+	this->SetCamera();
+	this->SetModels();
+}
+
+GLint Shader::GetUniformLocation(const string& name)
+{
+	//map iterator
+	auto it = uniformLocations.find(name);
+
+	//if found then return
+	if (it != uniformLocations.end()) {
+		return it->second;
+	}
+
+	GLint location = glGetUniformLocation(this->Id, name.c_str());
+	uniformLocations[name] = location;
+
+	return location;
+}
+
+
+string Shader::GetShaderCode(const char* filename)
+{
+	ifstream stream(filename, ios::binary);
 	if (stream)
 	{
-		std::string contents;
-		stream.seekg(0, std::ios::end);
+		string contents;
+		stream.seekg(0, ios::end);
 		contents.resize(stream.tellg());
-		stream.seekg(0, std::ios::beg);
+		stream.seekg(0, ios::beg);
 		stream.read(&contents[0], contents.size());
 		stream.close();
 		return contents;

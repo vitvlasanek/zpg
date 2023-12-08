@@ -16,21 +16,28 @@
 //Include the standard C++ headers  
 #include <stdlib.h>
 #include <stdio.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <iostream>
+#include <vector>
+#include "sphere.h"
 
 #include "VertexArrayObject.h"
 
 class Model
 {
 public:
+	Model();
 	Model(const GLfloat* vertices, const GLsizeiptr numVertices);
-	void Initialize();
+	virtual void Initialize();
 	void Delete();
 	void Bind();
 	void Unbind();
 	GLsizeiptr GetNumVertices();
 	~Model();
 
-private:
+protected:
 	VertexArrayObject vao_;
 	VertexBufferObject vbo_;
 

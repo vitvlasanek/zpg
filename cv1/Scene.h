@@ -25,7 +25,8 @@
 #include "plain.h"
 #include "tree.h"
 #include "Camera.h"
-
+#include "Sphere.h"
+#include "bushes.h"
 
 
 class Scene
@@ -38,10 +39,13 @@ public:
 	void SetModels(vector<DrawableObject*> drawableObjects);
 	void AddModels(vector<DrawableObject*> drawableObjects);
 	void SetCamera(Camera* cam);
+	void SetLights(Light* lights, int numlights);
 private:
 	Window* win;
 	Shader* shader;
 	Camera* cam_;
+	Light* lights_;
+	int numLights_;
 	vector<DrawableObject*> drawableObjects_;
 };
 

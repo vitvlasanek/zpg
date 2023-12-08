@@ -14,22 +14,12 @@ Camera::Camera(int width, int height, vec3 position)
 }
 
 
-//Deprecated: moved to shader, which now sets itself
-//void Camera::Matrix(Shader& shader, const char* uniform)
-//{
-//	// Exports the camera matrix to the Vertex Shader
-//	glUniformMatrix4fv(glGetUniformLocation(shader.Id, uniform), 1, GL_FALSE, value_ptr(cameraMatrix));
-//}
-
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 {
-	// Initializes matrices since otherwise they will be the null matrix
 	mat4 view = mat4(1.0f);
 	mat4 projection = mat4(1.0f);
 
-	// Makes camera look in the right direction from the right position
 	view = lookAt(Position, Position + Orientation, Up);
-	// Adds perspective to the scene
 	projection = perspective(radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
 	this->cameraMatrix = projection * view;

@@ -67,9 +67,7 @@ void Shader::SetLights(Light* lights, const int numLights)
 void Shader::SetCamera()
 {
 	glUniformMatrix4fv(GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cam->cameraMatrix));
-	glm::vec3 objectColor(0.5f, 0.5f, 0.5f);
-	GLint viewPosLoc = this->GetUniformLocation("viewPos");
-	glUniform3fv(viewPosLoc, 1, glm::value_ptr(glm::vec3(0.0f, 0.0f, 5.0f)));
+	glUniform3fv(GetUniformLocation("viewPos"), 1, glm::value_ptr(this->cam->Position));
 }
 
 void Shader::SetModels()
@@ -79,13 +77,29 @@ void Shader::SetModels()
 		mat4 modelMatrix = objects[i]->GetModelMatrix();
 		glUniformMatrix4fv(this->GetUniformLocation("model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
 		glUniform3fv(GetUniformLocation("objectColor"), 1, glm::value_ptr(objects[i]->color));
+		if (objects[i]->texture_ != nullptr)
+		{
+			glUniform1d(GetUniformLocation("texture"), 0);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, *(objects[i]->texture_));
+
+		}
+		else
+		{
+			glUniform1d(GetUniformLocation("texture"), -1);
+		}
 		objects[i]->Draw();
 	}
 }
 
+void Shader::SetTexture(GLuint* texture)
+{
+}
+
+
 void Shader::Update()
 {
-	cout << "Shader updated";
+	//cout << "Shader updated";
 	this->SetCamera();
 	this->SetModels();
 }

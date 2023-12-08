@@ -55,6 +55,9 @@ public:
 
 	void SetModels();
 
+	void SetTexture(GLuint * texture);
+
+
 	// Inherited via Observer
 	void Update() override;
 };

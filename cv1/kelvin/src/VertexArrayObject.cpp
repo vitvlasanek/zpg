@@ -3,12 +3,7 @@
 VertexArrayObject::VertexArrayObject()
 {
 	//Vertex Array Object (VAO)
-	glGenVertexArrays(1, &id); //generate the VAO
-
-	//glEnableVertexAttribArray(0); //enable vertex attributes
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindVertexArray(0);
+	glGenVertexArrays(1, &id); 
 }
 
 VertexArrayObject::~VertexArrayObject()

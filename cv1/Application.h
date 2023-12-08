@@ -20,17 +20,14 @@
 #include "Shader.h"
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
-#include "suzi_smooth.h"
-#include "plain.h"
-#include "Camera.h"
-
-
+#include "Scene.h"
+#include <SOIL.h>
 
 class Application
 {
 public:
 	Application();
-	int Initialize();
+	void Initialize(int version);
 	void Run();
 	void Delete();
 private:
@@ -38,5 +35,6 @@ private:
 	Shader* shader;
 	VertexArrayObject* vao;
 	VertexBufferObject* vbo;
+	int version_;
 };
 

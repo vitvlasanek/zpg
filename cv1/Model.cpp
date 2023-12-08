@@ -1,6 +1,10 @@
 #include "Model.h"
 
 
+Model::Model() : vbo_(nullptr, 0, GL_STATIC_DRAW)
+{
+}
+
 Model::Model(const GLfloat* vertices, const GLsizeiptr numVertices) : vbo_(vertices, numVertices, GL_STATIC_DRAW)
 {
 	this->numVertices_ = numVertices;
@@ -9,12 +13,10 @@ Model::Model(const GLfloat* vertices, const GLsizeiptr numVertices) : vbo_(verti
 
 void Model::Initialize()
 {
-	// Links VertexBufferObject to VertexArrayObject
 	this->Bind();
 	vao_.LinkVBO(vbo_, 0, 3, GL_FLOAT, 6 * sizeof(GLfloat), (GLvoid*)0);
 	vao_.LinkVBO(vbo_, 1, 3, GL_FLOAT, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	// Unbind all to prevent accidentally modifying them
-
+    //vao_.LinkVBO(vbo_, 2, 2, GL_FLOAT, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 	this->Unbind();
 }
 

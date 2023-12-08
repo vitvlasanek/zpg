@@ -37,6 +37,15 @@
     <Filter Include="Header Files\ObserverPattern">
       <UniqueIdentifier>{8857f45b-d7b3-418f-83f6-bfb5f73f966f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Models\tree">
+      <UniqueIdentifier>{c5e7268e-5dad-4b52-8184-16c193c50c0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models\headers">
+      <UniqueIdentifier>{dc10e8df-6c7f-451a-a134-d6d5b4426439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models\sky">
+      <UniqueIdentifier>{1bb3b4e5-a31d-4b91-8578-fd729d26b9f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="program.cpp">
@@ -84,6 +93,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SkinnedModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -125,27 +137,6 @@
     <ClInclude Include="Scaling.h">
       <Filter>Header Files\Transformations</Filter>
     </ClInclude>
-    <ClInclude Include="bushes.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="gift.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="suzi_flat.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="suzi_smooth.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="tree.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="plain.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Header Files\ObserverPattern</Filter>
     </ClInclude>
@@ -159,6 +150,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bushes.h">
+      <Filter>Resource Files\Models\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gift.h">
+      <Filter>Resource Files\Models\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="plain.h">
+      <Filter>Resource Files\Models\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Resource Files\Models\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="suzi_flat.h">
+      <Filter>Resource Files\Models\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="suzi_smooth.h">
+      <Filter>Resource Files\Models\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>Resource Files\Models\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -187,5 +205,28 @@
     <None Include="blinn_phong.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\models\tree\tree.mtl">
+      <Filter>Resource Files\Models\tree</Filter>
+    </None>
+    <None Include="skydome.blend">
+      <Filter>Resource Files\Models\sky</Filter>
+    </None>
+    <None Include="skydome.mtl">
+      <Filter>Resource Files\Models\sky</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="wooden_fence.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\models\tree\tree.png">
+      <Filter>Resource Files\Models\tree</Filter>
+    </Image>
+    <Image Include="fulldome3.jpg">
+      <Filter>Resource Files\Models\sky</Filter>
+    </Image>
+    <Image Include="skydome.png">
+      <Filter>Resource Files\Models\sky</Filter>
+    </Image>
   </ItemGroup>
 </Project>

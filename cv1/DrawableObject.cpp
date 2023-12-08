@@ -35,6 +35,11 @@ void DrawableObject::Delete()
 	this->model_->Delete();
 }
 
+void DrawableObject::SetTexture(GLuint* texture)
+{
+	this->texture_ = texture;
+}
+
 mat4 DrawableObject::GetModelMatrix() {
 	return this->modelMatrix;
 }
@@ -46,8 +51,8 @@ void DrawableObject::Draw()
 	model_->Unbind();
 }
 
-void DrawableObject::Transform(Transformation& transformation)
+void DrawableObject::Transform(Transformation* transformation)
 {
-	this->modelMatrix* transformation.GetMatrix();
+	this->modelMatrix *= transformation->GetMatrix();
 }
 
