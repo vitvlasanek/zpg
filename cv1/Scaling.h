@@ -5,13 +5,13 @@ class Scaling :
     public TransformationComponent
 {
 public:
-    Scaling(const glm::vec3& scale) : scale(scale) {}
+    Scaling(const vec3& scale) : scale_(scale) {}
 
     // Inherited via TransformationComponent   
-    glm::mat4 GetMatrix() const override {
-        return glm::scale(glm::mat4(1.0f), scale);
+    mat4 GetMatrix() const override {
+        return glm::scale(mat4(1.0f), scale_);
     }
 
 private:
-    glm::vec3 scale;
+    vec3 scale_;
 };

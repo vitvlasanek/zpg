@@ -35,7 +35,6 @@ void Model::Unbind()
 {
 	vao_.Unbind();
 	vbo_.Unbind();
-
 }
 
 GLsizeiptr Model::GetNumVertices()
@@ -47,3 +46,4 @@ Model::~Model()
 {
 	this->Delete();
 }
+ 

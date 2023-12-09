@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 
-Scene::Scene()
+Scene::Scene(std::string shader_type)
 {
 	const unsigned int width = 1280;
 	const unsigned int height = 720;
@@ -13,7 +13,7 @@ Scene::Scene()
 	//win = &window;
 
 	this->cam_ = new Camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
-	this->shader = new Shader(this->cam_, "phong.vert", "phong.frag");
+	this->shader = new Shader(this->cam_, (shader_type + ".vert").c_str(), (shader_type + "frag").c_str());
 }
 
 int Scene::Initialize()
@@ -23,7 +23,7 @@ int Scene::Initialize()
 	for (int i = 0; i < drawableObjects_.size(); i++)
 	{
 		drawableObjects_[i]->Attach(this->shader);
-		this->shader->objects.push_back(drawableObjects_[i]);
+		this->shader->AddObject(drawableObjects_[i]);
 	}
 
 
@@ -31,7 +31,7 @@ int Scene::Initialize()
 	double prevTime = glfwGetTime();
 	glEnable(GL_DEPTH_TEST);
 
-	while (!win->ShouldClose()) 
+	while (!win->ShouldClose())
 	{
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -74,6 +74,35 @@ void Scene::AddModels(vector<DrawableObject*> drawableObjects)
 	}
 }
 
+void Scene::SetLights(vector<LightBase*> lights)
+{
+	this->lightsVector_ = lights;
+}
+
+void Scene::DrawModels()
+{
+	for (int i = 0; i < this->drawableObjects_.size(); i++)
+	{
+		drawableObjects_[i]->Draw();
+	}
+}
+
+void Scene::AddLights(vector<LightBase*> lights)
+{
+	for (int i = 0; i < lights.size(); i++)
+	{
+		this->lightsVector_.push_back(lights.at(i));
+	}
+}
+
+void Scene::DrawLights()
+{
+	for (int i = 0; i < this->lightsVector_.size(); i++)
+	{
+		this->lightsVector_[i]->Render(i);
+	}
+}
+
 void Scene::SetCamera(Camera* cam)
 {
 	this->cam_ = cam;
@@ -85,5 +114,6 @@ void Scene::SetLights(Light* lights, int numlights)
 	this->lights_ = lights;
 	this->numLights_ = numlights;
 }
+
 
 

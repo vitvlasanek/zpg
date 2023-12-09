@@ -6,10 +6,12 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Subject.h"
 
 using namespace glm;
+using namespace std;
 
 // ---- Camera .h ---
 // dopredna deklarace
@@ -17,10 +19,11 @@ class Shader;
 class Camera : public Subject
 {
 private:
-	Shader* sh;
+	Shader* shader_;
 public:
-	Camera(Shader* s);
-	void metoda();
+	// Camera constructor to set up initial values
+	Camera(int width, int height, vec3 position, Shader* s);
+	//Camera(Shader* s);
 	Camera();
 
 
@@ -41,11 +44,9 @@ public:
 	float speed = 0.1f;
 	float sensitivity = 100.0f;
 
-	// Camera constructor to set up initial values
-	Camera(int width, int height, vec3 position);
 
 	// Updates and exports the camera matrix to the Vertex Shader
-	void Matrix(Shader& shader, const char* uniform);
+	void UpdateUniforms();
 
 	void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane);
 	// Handles camera inputs

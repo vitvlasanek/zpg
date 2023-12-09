@@ -105,8 +105,8 @@ Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, G
 	if (!glewInit())
 	{
 		fprintf(stderr, "Failed to initialize GLEW\n");
-		//glfwTerminate();
-		//exit(EXIT_FAILURE);
+		glfwTerminate();
+		exit(EXIT_FAILURE);
 	}
 }
 

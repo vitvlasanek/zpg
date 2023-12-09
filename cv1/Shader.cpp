@@ -3,7 +3,7 @@
 # include "Camera.h"
 Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
-	this->cam = c;
+	this->cam_ = c;
 
 	string vertexCode = GetShaderCode(vertexFile);
 	string fragmentCode = GetShaderCode(fragmentFile);
@@ -25,72 +25,30 @@ Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 	glCompileShader(fragmentShader);
 	CompileErrors(fragmentShader, "FRAGMENT", GL_COMPILE_STATUS);
 
-	this->Id = glCreateProgram();
-	CompileErrors(Id, "PROGRAM", GL_COMPILE_STATUS);
+	this->id_ = glCreateProgram();
+	CompileErrors(id_, "PROGRAM", GL_COMPILE_STATUS);
 
-	glAttachShader(Id, fragmentShader);
-	glAttachShader(Id, vertexShader);
-	glLinkProgram(Id);
+	glAttachShader(id_, fragmentShader);
+	glAttachShader(id_, vertexShader);
+	glLinkProgram(id_);
 
-	CompileErrors(Id, "PROGRAM", GL_LINK_STATUS);
+	CompileErrors(id_, "PROGRAM", GL_LINK_STATUS);
 
 
 }
 
 Shader::Shader(Camera* c) : Shader(c, "default.frag", "default.vert"){}
 
-
 void Shader::Activate()
 {
-	glUseProgram(this->Id);
+	glUseProgram(this->id_);
 }
 
 void Shader::Delete()
 {
-	glDeleteProgram(this->Id);
+	glDeleteProgram(this->id_);
 }
 
-void Shader::SetLights(Light* lights, const int numLights)
-{
-	glUniform1i(GetUniformLocation("numLights"), numLights);
-
-	for (int i = 0; i < numLights; i++)
-	{
-		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].position"), 1, glm::value_ptr(lights[i].position));
-		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].color"), 1, glm::value_ptr(lights[i].color));
-		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].ambient"), 1, glm::value_ptr(lights[i].ambient));
-		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].diffuse"), 1, glm::value_ptr(lights[i].diffuse));
-		glUniform3fv(GetUniformLocation("lights[" + to_string(i) + "].specular"), 1, glm::value_ptr(lights[i].specular));
-	}
-}
-
-void Shader::SetCamera()
-{
-	glUniformMatrix4fv(GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cam->cameraMatrix));
-	glUniform3fv(GetUniformLocation("viewPos"), 1, glm::value_ptr(this->cam->Position));
-}
-
-void Shader::SetModels()
-{
-	for (int i = 0; i < objects.size(); i++)
-	{
-		mat4 modelMatrix = objects[i]->GetModelMatrix();
-		glUniformMatrix4fv(this->GetUniformLocation("model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
-		glUniform3fv(GetUniformLocation("objectColor"), 1, glm::value_ptr(objects[i]->color));
-		if (objects[i]->texture_ != nullptr)
-		{
-			glUniform1d(GetUniformLocation("texture"), 0);
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, *(objects[i]->texture_));
-
-		}
-		else
-		{
-			glUniform1d(GetUniformLocation("texture"), -1);
-		}
-		objects[i]->Draw();
-	}
-}
 
 void Shader::SetTexture(GLuint* texture)
 {
@@ -99,9 +57,7 @@ void Shader::SetTexture(GLuint* texture)
 
 void Shader::Update()
 {
-	//cout << "Shader updated";
-	this->SetCamera();
-	this->SetModels();
+	this->Activate();
 }
 
 GLint Shader::GetUniformLocation(const string& name)
@@ -114,7 +70,7 @@ GLint Shader::GetUniformLocation(const string& name)
 		return it->second;
 	}
 
-	GLint location = glGetUniformLocation(this->Id, name.c_str());
+	GLint location = glGetUniformLocation(this->id_, name.c_str());
 	uniformLocations[name] = location;
 
 	return location;

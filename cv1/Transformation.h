@@ -3,7 +3,6 @@
 
 #include "TransformationComponent.h"
 
-using namespace glm;
 using namespace std;
 
 class Transformation : public TransformationComponent

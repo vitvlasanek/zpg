@@ -38,22 +38,20 @@ class Camera;
 class Shader : public Observer
 {
 private:
-	Camera* cam;
-	string GetShaderCode(const char* filename);
+	Camera* cam_;
+	GLuint id_;
 	map<string, GLint> uniformLocations;
+
+
+	string GetShaderCode(const char* filename);
 	void CompileErrors(GLuint shader, const char* type, GLenum pname);
-	GLint GetUniformLocation(const string& name);
 public:
-	vector<DrawableObject*> objects;
-	GLuint Id;
 	Shader(Camera* c, const char* vertexFile, const char* fragmentFile);
 	Shader(Camera* c);
+	GLint GetUniformLocation(const string& name);
 	void Activate();
 	void Delete();
-	void SetLights(Light* lights, int numLights);
-	void SetCamera();
 
-	void SetModels();
 
 	void SetTexture(GLuint * texture);
 

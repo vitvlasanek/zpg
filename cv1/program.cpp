@@ -5,8 +5,8 @@
 int main()
 {
 	Application* app = new Application();
-	app->Initialize(2);
-
+	app->Initialize(3);
+	
 	app->Run();
 	exit(EXIT_SUCCESS);
 }

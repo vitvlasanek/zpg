@@ -6,13 +6,20 @@ Camera::Camera() {
 
 
 
-Camera::Camera(int width, int height, vec3 position)
+Camera::Camera(int width, int height, vec3 position, Shader* s)
 {
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
+	this->shader_ = s;
 }
 
+
+void Camera::UpdateUniforms()
+{
+	glUniformMatrix4fv(this->shader_->GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cameraMatrix));
+	glUniform3fv(this->shader_->GetUniformLocation("viewPos"), 1, glm::value_ptr(this->Position));
+}
 
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 {
@@ -54,7 +61,6 @@ void Camera::Inputs(GLFWwindow* window)
 	{
 		Position += speed * -Up;
 	}
-
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
 		speed = 0.4f;

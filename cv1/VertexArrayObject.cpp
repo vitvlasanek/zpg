@@ -3,7 +3,7 @@
 VertexArrayObject::VertexArrayObject()
 {
 	//Vertex Array Object (VAO)
-	glGenVertexArrays(1, &id); 
+	glGenVertexArrays(1, &id_); 
 }
 
 VertexArrayObject::~VertexArrayObject()
@@ -21,7 +21,7 @@ void VertexArrayObject::LinkVBO(VertexBufferObject& VBO, GLuint layout, GLuint n
 
 void VertexArrayObject::Bind()
 {
-	glBindVertexArray(id); //bind the VAO
+	glBindVertexArray(id_); //bind the VAO
 }
 
 void VertexArrayObject::Unbind()
@@ -31,6 +31,6 @@ void VertexArrayObject::Unbind()
 
 void VertexArrayObject::Delete()
 {
-	glDeleteVertexArrays(1, &id);
+	glDeleteVertexArrays(1, &id_);
 }
 

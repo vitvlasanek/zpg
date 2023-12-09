@@ -27,19 +27,31 @@
 #include "Camera.h"
 #include "Sphere.h"
 #include "bushes.h"
+#include "LightBase.h"
+#include "FlashLight.h"
 
 
 class Scene
 {
 public:
 	Scene();
+	Scene(std::string shader_type);
 	int Initialize();
 	void Run();
 	void Delete();
 	void SetModels(vector<DrawableObject*> drawableObjects);
 	void AddModels(vector<DrawableObject*> drawableObjects);
+	void SetLights(vector<LightBase*> lights);
+	void AddLights(vector<LightBase*> lights);
+
+	void DrawLights();
+
+
 	void SetCamera(Camera* cam);
 	void SetLights(Light* lights, int numlights);
+
+
+	void DrawModels();
 private:
 	Window* win;
 	Shader* shader;
@@ -47,5 +59,6 @@ private:
 	Light* lights_;
 	int numLights_;
 	vector<DrawableObject*> drawableObjects_;
+	vector<LightBase*> lightsVector_;
 };
 

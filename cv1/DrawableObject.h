@@ -14,27 +14,32 @@
 #include "Translation.h"
 #include "Scaling.h"
 #include "Rotation.h"
+#include "Shader.h"
 
 using namespace glm;
 
 class DrawableObject : public Subject
 {
 public:
-	DrawableObject(Model* model);
+	DrawableObject(Model* model, Shader * shader);
 	void Initialize();
+	void Delete();
+	void SetTexture(GLuint* texture);
+	void Draw();
+
+#pragma region Transformations
+	void Transform(Transformation* transformationMatrix);
 	void Translate(const vec3& tranlation);
 	void Rotate(const vec3& rotation);
 	void Scale(const vec3& scale);
-	void Delete();
-	void SetTexture(GLuint* texture);
-	mat4 GetModelMatrix();
-	void Draw();
-	vec3 color;
-	GLuint* texture_;
-	void Transform(Transformation* transformationMatrix);
+#pragma endregion
+
 
 private:
-	mat4 modelMatrix;
+	vec3 color_;
+	GLuint* texture_;
+	mat4 modelMatrix_;
 	Model* model_;
+	Shader* shader_;
 };
 

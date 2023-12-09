@@ -3,19 +3,19 @@
 
 VertexBufferObject::VertexBufferObject(const GLvoid* data, GLsizeiptr size, GLenum usage)
 {
-	glGenBuffers(1, &id);
-	glBindBuffer(GL_ARRAY_BUFFER, this->id);
+	glGenBuffers(1, &id_);
+	glBindBuffer(GL_ARRAY_BUFFER, this->id_);
 	glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 }
 
 VertexBufferObject::~VertexBufferObject()
 {
-	glDeleteBuffers(1, &id);
+	glDeleteBuffers(1, &id_);
 }
 
 void VertexBufferObject::Bind()
 {
-	glBindBuffer(GL_ARRAY_BUFFER, this->id);
+	glBindBuffer(GL_ARRAY_BUFFER, this->id_);
 }
 
 void VertexBufferObject::Unbind()
@@ -25,5 +25,6 @@ void VertexBufferObject::Unbind()
 
 void VertexBufferObject::Delete()
 {
-	glDeleteBuffers(1, &id);
+	glDeleteBuffers(1, &id_);
 }
+1
