@@ -47,7 +47,6 @@ public:
 	Scene& AddShaders(vector<Shader*> shaders);
 
 
-
 	Scene& SetCamera(Camera* cam);
 	Scene& SetLights(Light* lights, int numlights);
 	map<string, Shader*> shaders_;
@@ -61,5 +60,6 @@ private:
 	int numLights_;
 	vector<DrawableObject*> drawableObjects_;
 	vector<LightBase*> lightsVector_;
+	map<Shader*, vector<DrawableObject*>> ShaderObjects_;
 };
 

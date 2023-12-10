@@ -37,11 +37,7 @@ int Scene::Initialize()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
-		for (size_t i = 0; i < lightsVector_.size(); i++)
-		{
-			lightsVector_[i]->Render(i);
-		}
-		shader->LightsCount(lightsVector_.size());
+		this->DrawLights();
 
 
 		cam_->UpdateMatrix(45.0f, 0.1f, 100.0f);
@@ -130,8 +126,9 @@ void Scene::DrawLights()
 {
 	for (int i = 0; i < this->lightsVector_.size(); i++)
 	{
-		this->lightsVector_[i]->Render(i);
+		this->lightsVector_[i]->Render(shader, i);
 	}
+	shader->LightsCount(lightsVector_.size());
 }
 #pragma endregion
 

@@ -14,40 +14,53 @@ void Application::Run()
 {
 
 	Scene* sc2 = new Scene("phong");
-
-	//SkinnedModel* sphereModel = new SkinnedModel("plane.obj");
-	SkinnedModel* sphereModel2 = new SkinnedModel("model.obj");
-
-
 	vector<DrawableObject*> drawableObjects;
-	DrawableObject* spheres[4];
+
+	SkinnedModel* sphereModel2 = new SkinnedModel("model.obj");
+	SkinnedModel* plane = new SkinnedModel("teren.obj");
+	SkinnedModel* dome = new SkinnedModel("skydome.obj");
+	SkinnedModel* tree = new SkinnedModel("tree.obj");
+
+
+
+	DrawableObject* trees[10];
 
 	Texture* t = new Texture("model.png");
+	Texture* treeTexture = new Texture("tree.png");
 
 	DrawableObject* loaded = new DrawableObject(sphereModel2, sc2->shaders_["phong"]);
 	loaded->Initialize();
 	loaded->SetTexture(t);
 	drawableObjects.push_back(loaded);
 
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	int ope = i < 2 ? -1 : 1;
-	//	ope *= 2;
-	//	spheres[i] = new DrawableObject(sphereModel, sc2->shaders_["phong"]);
-	//	spheres[i]->SetColor(vec3(1, 1, 1));
-	//	spheres[i]->Initialize();
-	//	spheres[i]->Translate(glm::vec3(i % 2 * ope, 0, (i + 1) % 2 * ope));
-	//	spheres[i]->Rotate(glm::vec3(0, 0, -45));
+	DrawableObject* grass = new DrawableObject(plane, sc2->shaders_["phong"]);
+	Texture* grassTexture = new Texture("grass.png");
+	grass->Initialize();
+ 	grass->SetTexture(grassTexture);
+	grass->SetColor(vec3(0.5f, 0.5f, 0.5f));
+	drawableObjects.push_back(grass);
 
-	//	spheres[i]->SetTexture(&textureID);
-	//	drawableObjects.push_back(spheres[i]);
-	//}
+	for (int i = 0; i < 10; i++)
+	{
+		int xOffset = rand() % 200;
+		int yOffset = rand() % 200;
+		int rotate = rand() % 90;
+		trees[i] = new DrawableObject(tree, sc2->shaders_["phong"]);
+		trees[i]->SetColor(vec3(1, 1, 1));
+		trees[i]->Initialize();
+		trees[i]->Scale(vec3(0.2f));
+		trees[i]->Rotate(glm::vec3(0, rotate, 0));
+		trees[i]->Translate(glm::vec3(xOffset - 100, 0, yOffset - 100));
 
-	LightBase* lb = new LightBase(sc2->shaders_["phong"]);
-	LightBase* lb2 = new LightBase(sc2->shaders_["phong"]); 
+		trees[i]->SetTexture(treeTexture);
+		drawableObjects.push_back(trees[i]);
+	}
 
+	LightBase* lb = new LightBase();
+	LightBase* lb2 = new LightBase(); 
 
-	lb2->SetPosition(vec3(1, 1, 1));
+	lb->SetColor(vec3(1, 0, 0)).SetPosition(vec3(10,10,0));
+	lb2->SetPosition(vec3(100, 100, 100));
 	sc2->AddLights(lb);
 	sc2->AddLights(lb2);
 

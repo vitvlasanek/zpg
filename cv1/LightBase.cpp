@@ -1,11 +1,5 @@
 #include "LightBase.h"
 
-void LightBase::Render(int shaderIndex)
-{
-	this->Render(this->shader_, shaderIndex);
-}
-
-
 void LightBase::Render(Shader * shader, int shaderIndex)
 {
 	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].position"), 1, glm::value_ptr(this->light_.position));
@@ -45,12 +39,11 @@ LightBase& LightBase::SetSpecular(vec3 specular)
 	return *this;
 }
 
-LightBase::LightBase(Shader * shader)
+LightBase::LightBase()
 {
 	this->light_.position = vec3(0.0f, 0.0f, 0.0f);
 	this->light_.color = vec3(1.0f, 1.0f, 1.0f);
 	this->light_.ambient = vec3(0.0f, 0.0f, 0.0f);
 	this->light_.diffuse = vec3(0.5f, 0.5f, 0.5f);
 	this->light_.specular = vec3(1.0f, 1.0f, 1.0f);
-	this->shader_ = shader;
 }

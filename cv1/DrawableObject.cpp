@@ -6,7 +6,7 @@ DrawableObject::DrawableObject(Model* model, Shader * shader)
 	this->modelMatrix_ = mat4(1.0f);
 	this->color_ = vec3(1, 1, 1);
 	this->shader_ = shader;
-	this->texture_old_ = nullptr;
+	this->texture_ = nullptr;
 }
 
 void DrawableObject::Initialize()

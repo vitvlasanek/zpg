@@ -9,16 +9,13 @@ class LightBase
 {
 protected:
 	Light light_;
-	Shader* shader_;
 public:
-	LightBase(Shader * shader);
+	LightBase();
 
 	/// <summary>
 	/// Sets light to index in referenced shader
 	/// </summary>
 	/// <param name="shaderIndex">: from referecned Shader</param>
-	void Render(int shaderIndex);
-
 	void Render(Shader* shader, int shaderIndex);
 
 	/// <summary>
