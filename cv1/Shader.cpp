@@ -4,6 +4,7 @@
 Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
 	this->cam_ = c;
+	this->type_ = vertexFile;
 
 	string vertexCode = GetShaderCode(vertexFile);
 	string fragmentCode = GetShaderCode(fragmentFile);
@@ -41,11 +42,16 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile) : Shader(nullpt
 {
 }
 
-Shader::Shader(Camera* c) : Shader(c, "default.frag", "default.vert"){}
+Shader::Shader(Camera* c) : Shader(c, "default.vert", "default.frag"){}
 
 void Shader::Activate()
 {
 	glUseProgram(this->id_);
+}
+
+void Shader::Deactivate()
+{
+	glUseProgram(0);
 }
 
 void Shader::Delete()

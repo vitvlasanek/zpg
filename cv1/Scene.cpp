@@ -20,51 +20,50 @@ Scene::Scene(std::string shader_type)
 int Scene::Initialize()
 {
 	this->shader = this->shaders_["phong"];
-	this->cam_->Attach(this->shader);
+	//this->cam_->Attach(this->shader);
 
 	for (int i = 0; i < drawableObjects_.size(); i++)
 	{
-		drawableObjects_[i]->Attach(this->shader);
+		//drawableObjects_[i]->Attach(this->shader);
 	}
 
 	GLfloat rotation = 0.0f;
 	double prevTime = glfwGetTime();
 	glEnable(GL_DEPTH_TEST);
 
-	while (!win->ShouldClose())
-	{
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-
-		this->DrawLights();
-
-
-		cam_->UpdateMatrix(45.0f, 0.1f, 100.0f);
-		shader->Activate();
-
-		cam_->Inputs(win->GetWindow());
-		for (int i = 0; i < drawableObjects_.size(); i++)
-		{
-			drawableObjects_[i]->Draw();
-		}
-		cam_->UpdateUniforms();
-		//shader->Update();
-
-		glfwSwapBuffers(win->GetWindow());
-		glfwPollEvents();
-	}
-
-	shader->Delete();
 	return 0;
 }
 
 void Scene::Run()
 {
+	while (!win->ShouldClose())
+	{
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		cam_->Inputs(win->GetWindow());
+
+		cam_->UpdateMatrix(45.0f, 0.1f, 100.0f);
+		//shader->Activate();
+		for (const auto& pair : this->ShaderObjects_) {
+			pair.first->Activate();
+			cam_->UpdateUniforms(pair.first);
+			pair.first->LightsCount(this->lightsVector_.size());
+			this->DrawLights(pair.first);
+			for (const auto& d : pair.second) {
+				d->Draw();
+			}
+			pair.first->Deactivate();
+		}
+
+		glfwSwapBuffers(win->GetWindow());
+		glfwPollEvents();
+	}
 }
 
 void Scene::Delete()
 {
+	shader->Delete();
 	glfwTerminate();
 }
 
@@ -73,6 +72,14 @@ void Scene::Delete()
 Scene& Scene::SetModels(vector<DrawableObject*> drawableObjects)
 {
 	this->drawableObjects_ = drawableObjects;
+
+	map<Shader*, vector<DrawableObject*>> m;
+	for (int i = 0; i < drawableObjects.size(); i++)
+	{
+		m[drawableObjects[i]->shader_].push_back(drawableObjects[i]);
+	}
+
+	this->ShaderObjects_ = m;
 	return *this;
 }
 
@@ -81,6 +88,7 @@ Scene& Scene::AddModels(vector<DrawableObject*> drawableObjects)
 	for (int i = 0; i < drawableObjects.size(); i++)
 	{
 		this->drawableObjects_.push_back(drawableObjects[i]);
+		this->ShaderObjects_[drawableObjects[i]->shader_].push_back(drawableObjects[i]);
 	}
 	return *this;
 }
@@ -88,6 +96,7 @@ Scene& Scene::AddModels(vector<DrawableObject*> drawableObjects)
 Scene& Scene::AddModels(DrawableObject* drawableObject)
 {
 	this->drawableObjects_.push_back(drawableObject);
+	this->ShaderObjects_[drawableObject->shader_].push_back(drawableObject);
 	return *this;
 }
 
@@ -126,10 +135,19 @@ void Scene::DrawLights()
 {
 	for (int i = 0; i < this->lightsVector_.size(); i++)
 	{
-		this->lightsVector_[i]->Render(shader, i);
+		this->lightsVector_[i]->SetUniforms(shader, i);
 	}
 	shader->LightsCount(lightsVector_.size());
 }
+void Scene::DrawLights(Shader * s)
+{
+	for (int i = 0; i < this->lightsVector_.size(); i++)
+	{
+		this->lightsVector_[i]->SetUniforms(s, i);
+	}
+	s->LightsCount(lightsVector_.size());
+}
+
 #pragma endregion
 
 Scene& Scene::SetShaders(map<string, Shader*> shaders)
@@ -151,12 +169,6 @@ Scene& Scene::SetCamera(Camera* cam)
 	return *this;
 }
 
-Scene& Scene::SetLights(Light* lights, int numlights)
-{
-	this->lights_ = lights;
-	this->numLights_ = numlights;
-	return *this;
-}
 
 
 

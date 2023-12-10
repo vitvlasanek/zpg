@@ -9,10 +9,8 @@ out vec3 Normal;     // Normal vector in world space
 out vec2 TexCoord;
 
 uniform mat4 model;
-
-//uniform mat4 view;
-//uniform mat4 projection;
 uniform mat4 camMatrix;
+
 void main()
 {
     FragPos = vec3(model * vec4(aPos, 1.0));

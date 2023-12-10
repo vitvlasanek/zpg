@@ -48,6 +48,8 @@ public:
 	// Updates and exports the camera matrix to the Vertex Shader
 	void UpdateUniforms();
 
+	void UpdateUniforms(Shader* shader);
+
 	void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane);
 	// Handles camera inputs
 	void Inputs(GLFWwindow* window);

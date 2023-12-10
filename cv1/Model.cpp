@@ -31,6 +31,7 @@ void Model::Delete()
 void Model::Bind()
 {
 	vao_.Bind();
+	vbo_.Bind();
 }
 
 void Model::Unbind()

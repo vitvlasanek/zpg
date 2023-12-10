@@ -40,7 +40,7 @@ private:
 	Camera* cam_;
 	GLuint id_;
 	map<string, GLint> uniformLocations;
-
+	string type_;
 
 	string GetShaderCode(const char* filename);
 	void CompileErrors(GLuint shader, const char* type, GLenum pname);
@@ -50,6 +50,7 @@ public:
 	Shader(Camera* c);
 	GLint GetUniformLocation(const string& name);
 	void Activate();
+	void Deactivate();
 	void Delete();
 	void LightsCount(int n);
 

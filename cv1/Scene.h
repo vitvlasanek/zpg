@@ -40,6 +40,7 @@ public:
 	Scene& AddLights(vector<LightBase*> lights);
 	Scene& AddLights(LightBase* light);
 	void DrawLights();
+	void DrawLights(Shader* s);
 #pragma endregion
 
 
@@ -48,7 +49,6 @@ public:
 
 
 	Scene& SetCamera(Camera* cam);
-	Scene& SetLights(Light* lights, int numlights);
 	map<string, Shader*> shaders_;
 
 
@@ -56,8 +56,6 @@ private:
 	Window* win;
 	Shader* shader;
 	Camera* cam_;
-	Light* lights_;
-	int numLights_;
 	vector<DrawableObject*> drawableObjects_;
 	vector<LightBase*> lightsVector_;
 	map<Shader*, vector<DrawableObject*>> ShaderObjects_;

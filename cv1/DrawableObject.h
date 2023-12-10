@@ -37,11 +37,11 @@ public:
 #pragma endregion
 
 
+	Shader* shader_;
 private:
 	vec3 color_;
 	mat4 modelMatrix_;
 	Model* model_;
-	Shader* shader_;
 	Texture* texture_;
 };
 

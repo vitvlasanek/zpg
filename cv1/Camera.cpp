@@ -21,6 +21,12 @@ void Camera::UpdateUniforms()
 	glUniform3fv(this->shader_->GetUniformLocation("viewPos"), 1, glm::value_ptr(this->Position));
 }
 
+void Camera::UpdateUniforms(Shader * shader)
+{
+	glUniformMatrix4fv(shader->GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cameraMatrix));
+	glUniform3fv(shader->GetUniformLocation("viewPos"), 1, glm::value_ptr(this->Position));
+}
+
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 {
 	mat4 view = mat4(1.0f);

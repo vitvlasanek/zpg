@@ -1,6 +1,6 @@
 #include "LightBase.h"
 
-void LightBase::Render(Shader * shader, int shaderIndex)
+void LightBase::SetUniforms(Shader * shader, int shaderIndex)
 {
 	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].position"), 1, glm::value_ptr(this->light_.position));
 	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].color"), 1, glm::value_ptr(this->light_.color));
@@ -43,7 +43,7 @@ LightBase::LightBase()
 {
 	this->light_.position = vec3(0.0f, 0.0f, 0.0f);
 	this->light_.color = vec3(1.0f, 1.0f, 1.0f);
-	this->light_.ambient = vec3(0.0f, 0.0f, 0.0f);
+	this->light_.ambient = vec3(0.1f, 0.1f, 0.1f);
 	this->light_.diffuse = vec3(0.5f, 0.5f, 0.5f);
 	this->light_.specular = vec3(1.0f, 1.0f, 1.0f);
 }

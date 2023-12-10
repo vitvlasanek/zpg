@@ -53,6 +53,7 @@ void DrawableObject::Draw()
 
 	glUniformMatrix4fv(this->shader_->GetUniformLocation("model"), 1, GL_FALSE, glm::value_ptr(this->modelMatrix_));
 	glUniform3fv(this->shader_->GetUniformLocation("objectColor"), 1, glm::value_ptr(this->color_));
+	
 	if (this->texture_ != nullptr)
 	{
 		this->texture_->Render(this->shader_);
@@ -69,5 +70,6 @@ void DrawableObject::Draw()
 void DrawableObject::Transform(Transformation* transformation)
 {
 	this->modelMatrix_ *= transformation->GetMatrix();
+	this->Notify();
 }
 

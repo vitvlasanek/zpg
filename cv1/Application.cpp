@@ -27,25 +27,26 @@ void Application::Run()
 
 	Texture* t = new Texture("model.png");
 	Texture* treeTexture = new Texture("tree.png");
+	Shader* shad = new Shader(new Camera());
+	Shader* shader_ph = sc2->shaders_["phong"];
 
-	DrawableObject* loaded = new DrawableObject(sphereModel2, sc2->shaders_["phong"]);
+	DrawableObject* loaded = new DrawableObject(sphereModel2, shader_ph);
 	loaded->Initialize();
 	loaded->SetTexture(t);
-	drawableObjects.push_back(loaded);
 
-	DrawableObject* grass = new DrawableObject(plane, sc2->shaders_["phong"]);
+	DrawableObject* grass = new DrawableObject(plane, shad);
 	Texture* grassTexture = new Texture("grass.png");
 	grass->Initialize();
  	grass->SetTexture(grassTexture);
-	grass->SetColor(vec3(0.5f, 0.5f, 0.5f));
-	drawableObjects.push_back(grass);
+	grass->SetColor(vec3(1));
+
 
 	for (int i = 0; i < 10; i++)
 	{
 		int xOffset = rand() % 200;
 		int yOffset = rand() % 200;
 		int rotate = rand() % 90;
-		trees[i] = new DrawableObject(tree, sc2->shaders_["phong"]);
+		trees[i] = new DrawableObject(tree, shad);
 		trees[i]->SetColor(vec3(1, 1, 1));
 		trees[i]->Initialize();
 		trees[i]->Scale(vec3(0.2f));
@@ -55,6 +56,8 @@ void Application::Run()
 		trees[i]->SetTexture(treeTexture);
 		drawableObjects.push_back(trees[i]);
 	}
+	drawableObjects.push_back(loaded);
+	drawableObjects.push_back(grass);
 
 	LightBase* lb = new LightBase();
 	LightBase* lb2 = new LightBase(); 
@@ -66,6 +69,7 @@ void Application::Run()
 
 	sc2->AddModels(drawableObjects);
 	sc2->Initialize();
+	sc2->Run();
 	delete(sc2);
 
 	//if (version_ == 1)
