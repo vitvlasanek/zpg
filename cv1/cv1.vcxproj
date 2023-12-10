@@ -142,6 +142,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="SkinnedModel.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="program.cpp" />
     <ClCompile Include="Translation.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Subject.h" />
     <ClInclude Include="suzi_flat.h" />
     <ClInclude Include="suzi_smooth.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Transformation.h" />
     <ClInclude Include="TransformationComponent.h" />
     <ClInclude Include="Translation.h" />

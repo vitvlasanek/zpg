@@ -1,14 +1,16 @@
 #include "Model.h"
 
 
-Model::Model() : vbo_(nullptr, 0, GL_STATIC_DRAW)
+Model::Model()
 {
+	vbo_.SetData(nullptr, 0, GL_STATIC_DRAW);
 }
 
-Model::Model(const GLfloat* vertices, const GLsizeiptr numVertices) : vbo_(vertices, numVertices, GL_STATIC_DRAW)
+Model::Model(const GLfloat* vertices, const GLsizeiptr numVertices)
 {
 	this->numVertices_ = numVertices;
 	this->verticies_ = vertices;
+	vbo_.SetData(vertices, numVertices, GL_STATIC_DRAW);
 }
 
 void Model::Initialize()

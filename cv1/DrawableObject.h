@@ -15,6 +15,7 @@
 #include "Scaling.h"
 #include "Rotation.h"
 #include "Shader.h"
+#include "Texture.h"
 
 using namespace glm;
 
@@ -24,7 +25,7 @@ public:
 	DrawableObject(Model* model, Shader * shader);
 	void Initialize();
 	void Delete();
-	void SetTexture(GLuint* texture);
+	void SetTexture(Texture* texture);
 	void SetColor(vec3 color);
 	void Draw();
 
@@ -38,9 +39,9 @@ public:
 
 private:
 	vec3 color_;
-	GLuint* texture_;
 	mat4 modelMatrix_;
 	Model* model_;
 	Shader* shader_;
+	Texture* texture_;
 };
 

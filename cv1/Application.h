@@ -32,9 +32,6 @@ public:
 	void Delete();
 private:
 	Window* win;
-	Shader* shader;
-	VertexArrayObject* vao;
-	VertexBufferObject* vbo;
 	int version_;
 };
 

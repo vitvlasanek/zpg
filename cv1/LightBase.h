@@ -19,6 +19,8 @@ public:
 	/// <param name="shaderIndex">: from referecned Shader</param>
 	void Render(int shaderIndex);
 
+	void Render(Shader* shader, int shaderIndex);
+
 	/// <summary>
 	/// Changes light color (defauls is white)
 	/// </summary>

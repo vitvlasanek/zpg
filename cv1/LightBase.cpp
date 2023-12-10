@@ -2,11 +2,17 @@
 
 void LightBase::Render(int shaderIndex)
 {
-	glUniform3fv(this->shader_->GetUniformLocation("lights[" + to_string(shaderIndex) + "].position"), 1, glm::value_ptr(this->light_.position));
-	glUniform3fv(this->shader_->GetUniformLocation("lights[" + to_string(shaderIndex) + "].color"), 1, glm::value_ptr(this->light_.color));
-	glUniform3fv(this->shader_->GetUniformLocation("lights[" + to_string(shaderIndex) + "].ambient"), 1, glm::value_ptr(this->light_.ambient));
-	glUniform3fv(this->shader_->GetUniformLocation("lights[" + to_string(shaderIndex) + "].diffuse"), 1, glm::value_ptr(this->light_.diffuse));
-	glUniform3fv(this->shader_->GetUniformLocation("lights[" + to_string(shaderIndex) + "].specular"), 1, glm::value_ptr(this->light_.specular));
+	this->Render(this->shader_, shaderIndex);
+}
+
+
+void LightBase::Render(Shader * shader, int shaderIndex)
+{
+	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].position"), 1, glm::value_ptr(this->light_.position));
+	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].color"), 1, glm::value_ptr(this->light_.color));
+	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].ambient"), 1, glm::value_ptr(this->light_.ambient));
+	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].diffuse"), 1, glm::value_ptr(this->light_.diffuse));
+	glUniform3fv(shader->GetUniformLocation("lights[" + to_string(shaderIndex) + "].specular"), 1, glm::value_ptr(this->light_.specular));
 }
 
 LightBase& LightBase::SetColor(vec3 color)

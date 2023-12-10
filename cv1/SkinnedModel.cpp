@@ -2,6 +2,7 @@
 
 SkinnedModel::SkinnedModel(const GLfloat* vertices, const GLsizeiptr numVertices) : Model(vertices, numVertices)
 {
+    vbo_.SetData(vertices, numVertices, GL_STATIC_DRAW);
 }
 
 SkinnedModel::SkinnedModel(const char* path)
@@ -9,9 +10,15 @@ SkinnedModel::SkinnedModel(const char* path)
     int count = 0;
 
     auto lm = LoadModel(path, count);
-    this->verticies_ = lm.data();
-    this->numVertices_ = count;
-    vbo_ = VertexBufferObject(verticies_, numVertices_, GL_STATIC_DRAW);
+
+    GLfloat* verts = new GLfloat[lm.size()];
+    for (int i = 0; i < lm.size(); i++)
+    {
+        verts[i] = lm.at(i);
+    }
+    this->verticies_ = verts;
+    this->numVertices_ = lm.size();
+    vbo_.SetData(verticies_, lm.size()*sizeof(GLfloat), GL_STATIC_DRAW);
 }
 
 void SkinnedModel::Initialize()

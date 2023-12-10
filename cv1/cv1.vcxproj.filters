@@ -117,6 +117,9 @@
     <ClCompile Include="SkinnedModel.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="SkinnedModel.h">
       <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

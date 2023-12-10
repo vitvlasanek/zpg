@@ -15,41 +15,41 @@ void Application::Run()
 
 	Scene* sc2 = new Scene("phong");
 
-	SkinnedModel* sphereModel = new SkinnedModel(plain, sizeof(plain));
+	//SkinnedModel* sphereModel = new SkinnedModel("plane.obj");
+	SkinnedModel* sphereModel2 = new SkinnedModel("model.obj");
+
 
 	vector<DrawableObject*> drawableObjects;
 	DrawableObject* spheres[4];
-	GLuint textureID = SOIL_load_OGL_texture(
-		"wooden_fence.png",  // Replace with the path to your texture file
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_TEXTURE_REPEATS
-	);
 
-	for (int i = 0; i < 4; i++)
-	{
-		int ope = i < 2 ? -1 : 1;
-		ope *= 2;
-		spheres[i] = new DrawableObject(sphereModel, sc2->shaders_["phong"]);
-		spheres[i]->SetColor(vec3(i % 2, (i * 2) % 2, (i + 3) % 2));
-		spheres[i]->Initialize();
-		spheres[i]->Translate(glm::vec3(i % 2 * ope, 0, (i + 1) % 2 * ope));
-		spheres[i]->Rotate(glm::vec3(45, 45, 45));
+	Texture* t = new Texture("model.png");
 
-		spheres[i]->SetTexture(&textureID);
-		drawableObjects.push_back(spheres[i]);
-	}
+	DrawableObject* loaded = new DrawableObject(sphereModel2, sc2->shaders_["phong"]);
+	loaded->Initialize();
+	loaded->SetTexture(t);
+	drawableObjects.push_back(loaded);
 
-	Light lights[1];
-	lights[0].position = glm::vec3(1.0f, 0.1f, 0.1f);
-	lights[0].color = glm::vec3(1.0f, 1.0f, 1.0f);
-	lights[0].ambient = glm::vec3(0.2f, 0.2f, 0.2f);
-	lights[0].diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
-	lights[0].specular = glm::vec3(1.0f, 1.0f, 1.0f);
+	//for (int i = 0; i < 4; i++)
+	//{
+	//	int ope = i < 2 ? -1 : 1;
+	//	ope *= 2;
+	//	spheres[i] = new DrawableObject(sphereModel, sc2->shaders_["phong"]);
+	//	spheres[i]->SetColor(vec3(1, 1, 1));
+	//	spheres[i]->Initialize();
+	//	spheres[i]->Translate(glm::vec3(i % 2 * ope, 0, (i + 1) % 2 * ope));
+	//	spheres[i]->Rotate(glm::vec3(0, 0, -45));
 
-	sc2->SetLights(lights, 1);
+	//	spheres[i]->SetTexture(&textureID);
+	//	drawableObjects.push_back(spheres[i]);
+	//}
+
 	LightBase* lb = new LightBase(sc2->shaders_["phong"]);
+	LightBase* lb2 = new LightBase(sc2->shaders_["phong"]); 
+
+
+	lb2->SetPosition(vec3(1, 1, 1));
 	sc2->AddLights(lb);
+	sc2->AddLights(lb2);
 
 	sc2->AddModels(drawableObjects);
 	sc2->Initialize();
