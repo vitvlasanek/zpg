@@ -26,7 +26,6 @@
 
 #include "light.h"
 #include "Observer.h"
-#include "DrawableObject.h"
 
 #define MAX_LIGHTS 10
 
@@ -47,11 +46,12 @@ private:
 	void CompileErrors(GLuint shader, const char* type, GLenum pname);
 public:
 	Shader(Camera* c, const char* vertexFile, const char* fragmentFile);
+	Shader(const char* vertexFile, const char* fragmentFile);
 	Shader(Camera* c);
 	GLint GetUniformLocation(const string& name);
 	void Activate();
 	void Delete();
-
+	void LightsCount(int n);
 
 	void SetTexture(GLuint * texture);
 

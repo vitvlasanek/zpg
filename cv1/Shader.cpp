@@ -37,6 +37,10 @@ Shader::Shader(Camera* c, const char * vertexFile, const char * fragmentFile) {
 
 }
 
+Shader::Shader(const char* vertexFile, const char* fragmentFile) : Shader(nullptr, vertexFile, fragmentFile)
+{
+}
+
 Shader::Shader(Camera* c) : Shader(c, "default.frag", "default.vert"){}
 
 void Shader::Activate()
@@ -47,6 +51,11 @@ void Shader::Activate()
 void Shader::Delete()
 {
 	glDeleteProgram(this->id_);
+}
+
+void Shader::LightsCount(int n)
+{
+	glUniform1i(GetUniformLocation("numLights"), n);
 }
 
 

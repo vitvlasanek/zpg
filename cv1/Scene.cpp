@@ -12,20 +12,20 @@ Scene::Scene(std::string shader_type)
 		.Build();
 	//win = &window;
 
-	this->cam_ = new Camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
-	this->shader = new Shader(this->cam_, (shader_type + ".vert").c_str(), (shader_type + "frag").c_str());
+	const auto s = new Shader((shader_type + ".vert").c_str(), (shader_type + ".frag").c_str());
+	this->shaders_[shader_type] = s;
+	this->cam_ = new Camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f), this->shaders_[shader_type]);
 }
 
 int Scene::Initialize()
 {
-	this->cam_->Attach(shader);
+	this->shader = this->shaders_["phong"];
+	this->cam_->Attach(this->shader);
 
 	for (int i = 0; i < drawableObjects_.size(); i++)
 	{
 		drawableObjects_[i]->Attach(this->shader);
-		this->shader->AddObject(drawableObjects_[i]);
 	}
-
 
 	GLfloat rotation = 0.0f;
 	double prevTime = glfwGetTime();
@@ -37,12 +37,23 @@ int Scene::Initialize()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
-		shader->SetLights(this->lights_, numLights_);
+		for (size_t i = 0; i < lightsVector_.size(); i++)
+		{
+			lightsVector_[i]->Render(i);
+		}
+		shader->LightsCount(lightsVector_.size());
+
+
 		cam_->UpdateMatrix(45.0f, 0.1f, 100.0f);
 		shader->Activate();
 
 		cam_->Inputs(win->GetWindow());
-		shader->Update();
+		for (int i = 0; i < drawableObjects_.size(); i++)
+		{
+			drawableObjects_[i]->Draw();
+		}
+		cam_->UpdateUniforms();
+		//shader->Update();
 
 		glfwSwapBuffers(win->GetWindow());
 		glfwPollEvents();
@@ -61,22 +72,27 @@ void Scene::Delete()
 	glfwTerminate();
 }
 
-void Scene::SetModels(vector<DrawableObject*> drawableObjects)
+
+#pragma region Models
+Scene& Scene::SetModels(vector<DrawableObject*> drawableObjects)
 {
 	this->drawableObjects_ = drawableObjects;
+	return *this;
 }
 
-void Scene::AddModels(vector<DrawableObject*> drawableObjects)
+Scene& Scene::AddModels(vector<DrawableObject*> drawableObjects)
 {
 	for (int i = 0; i < drawableObjects.size(); i++)
 	{
 		this->drawableObjects_.push_back(drawableObjects[i]);
 	}
+	return *this;
 }
 
-void Scene::SetLights(vector<LightBase*> lights)
+Scene& Scene::AddModels(DrawableObject* drawableObject)
 {
-	this->lightsVector_ = lights;
+	this->drawableObjects_.push_back(drawableObject);
+	return *this;
 }
 
 void Scene::DrawModels()
@@ -86,13 +102,28 @@ void Scene::DrawModels()
 		drawableObjects_[i]->Draw();
 	}
 }
+#pragma endregion
 
-void Scene::AddLights(vector<LightBase*> lights)
+#pragma region Lights
+Scene& Scene::SetLights(vector<LightBase*> lights)
+{
+	this->lightsVector_ = lights;
+	return *this;
+}
+
+Scene& Scene::AddLights(vector<LightBase*> lights)
 {
 	for (int i = 0; i < lights.size(); i++)
 	{
 		this->lightsVector_.push_back(lights.at(i));
 	}
+	return *this;
+}
+
+Scene& Scene::AddLights(LightBase* light)
+{
+	this->lightsVector_.push_back(light);
+	return *this;
 }
 
 void Scene::DrawLights()
@@ -102,17 +133,32 @@ void Scene::DrawLights()
 		this->lightsVector_[i]->Render(i);
 	}
 }
+#pragma endregion
 
-void Scene::SetCamera(Camera* cam)
+Scene& Scene::SetShaders(map<string, Shader*> shaders)
+{
+	this->shaders_ = shaders;
+	return *this;
+}
+
+Scene& Scene::AddShaders(vector<Shader*> shaders)
+{
+	return *this;
+}
+
+
+Scene& Scene::SetCamera(Camera* cam)
 {
 	this->cam_ = cam;
 	this->shader = new Shader(this->cam_, "phong.vert", "phong.frag");
+	return *this;
 }
 
-void Scene::SetLights(Light* lights, int numlights)
+Scene& Scene::SetLights(Light* lights, int numlights)
 {
 	this->lights_ = lights;
 	this->numLights_ = numlights;
+	return *this;
 }
 
 

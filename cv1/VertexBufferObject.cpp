@@ -27,4 +27,3 @@ void VertexBufferObject::Delete()
 {
 	glDeleteBuffers(1, &id_);
 }
-1

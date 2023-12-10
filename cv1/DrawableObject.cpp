@@ -41,6 +41,11 @@ void DrawableObject::SetTexture(GLuint* texture)
 	this->texture_ = texture;
 }
 
+void DrawableObject::SetColor(vec3 color)
+{
+	this->color_ = color;
+}
+
 
 void DrawableObject::Draw()
 {
@@ -57,10 +62,8 @@ void DrawableObject::Draw()
 	{
 		glUniform1d(this->shader_->GetUniformLocation("texture"), -1);
 	}
-	this->Draw();
-
 	model_->Bind();
-	glDrawArrays(GL_TRIANGLES, 0, model_->GetNumVertices() / (sizeof(GLfloat) * 6));
+	glDrawArrays(GL_TRIANGLES, 0, model_->GetNumVertices() / (sizeof(GLfloat) * 8));
 	model_->Unbind();
 }
 

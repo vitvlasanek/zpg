@@ -1,17 +1,4 @@
 #pragma once
-//Include GLEW
-#include <GL/glew.h>
-
-//Include GLFW
-#include <GLFW/glfw3.h>
-
-//Include GLM  
-#include <glm/vec3.hpp> // glm::vec3
-#include <glm/vec4.hpp> // glm::vec4
-#include <glm/mat4x4.hpp> // glm::mat4
-#include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
-#include <glm/gtc/type_ptr.hpp> // glm::value_ptr
-
 
 //Include the standard C++ headers  
 #include <stdlib.h>
@@ -29,6 +16,7 @@
 #include "bushes.h"
 #include "LightBase.h"
 #include "FlashLight.h"
+#include "DrawableObject.h"
 
 
 class Scene
@@ -39,19 +27,32 @@ public:
 	int Initialize();
 	void Run();
 	void Delete();
-	void SetModels(vector<DrawableObject*> drawableObjects);
-	void AddModels(vector<DrawableObject*> drawableObjects);
-	void SetLights(vector<LightBase*> lights);
-	void AddLights(vector<LightBase*> lights);
 
-	void DrawLights();
-
-
-	void SetCamera(Camera* cam);
-	void SetLights(Light* lights, int numlights);
-
-
+#pragma region Models
+	Scene& SetModels(vector<DrawableObject*> drawableObjects);
+	Scene& AddModels(vector<DrawableObject*> drawableObjects);
+	Scene& AddModels(DrawableObject* drawableObject);
 	void DrawModels();
+#pragma endregion
+
+#pragma region Lights
+	Scene& SetLights(vector<LightBase*> lights);
+	Scene& AddLights(vector<LightBase*> lights);
+	Scene& AddLights(LightBase* light);
+	void DrawLights();
+#pragma endregion
+
+
+	Scene& SetShaders(map<string, Shader*> shaders);
+	Scene& AddShaders(vector<Shader*> shaders);
+
+
+
+	Scene& SetCamera(Camera* cam);
+	Scene& SetLights(Light* lights, int numlights);
+	map<string, Shader*> shaders_;
+
+
 private:
 	Window* win;
 	Shader* shader;

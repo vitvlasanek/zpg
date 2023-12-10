@@ -25,6 +25,7 @@ public:
 	void Initialize();
 	void Delete();
 	void SetTexture(GLuint* texture);
+	void SetColor(vec3 color);
 	void Draw();
 
 #pragma region Transformations
