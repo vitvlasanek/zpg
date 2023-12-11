@@ -15,6 +15,9 @@ void Application::Run()
 
 	Scene* sc2 = new Scene("phong");
 
+	Shader* shader_def = new Shader("default");
+	Shader* shader_lamb = new Shader("lambert");
+	Shader* shader_ph = new Shader("phong");
 
 	vector<DrawableObject*> drawableObjects;
 
@@ -30,8 +33,6 @@ void Application::Run()
 	Texture* t = new Texture("model.png");
 	Texture* treeTexture = new Texture("tree.png");
 	Texture* domeTexture = new Texture("skydome.png");
-	Shader* shad = new Shader(new Camera());
-	Shader* shader_ph = sc2->shaders_["phong"];
 
 	Camera* cam = new Camera(1280, 720, glm::vec3(0.0f, 0.0f, 2.0f), shader_ph);
 	sc2->SetCamera(cam);
@@ -40,8 +41,8 @@ void Application::Run()
 	loaded->Initialize();
 	loaded->SetTexture(t);
 
-	DrawableObject* grass = new DrawableObject(plane, shad);
-	DrawableObject* sd = new DrawableObject(dome, shad);
+	DrawableObject* grass = new DrawableObject(plane, shader_lamb);
+	DrawableObject* sd = new DrawableObject(dome, shader_def);
 	sd->Initialize();
 	sd->SetTexture(domeTexture);
 	//sd->Scale(vec3(5));
@@ -56,7 +57,7 @@ void Application::Run()
 		int xOffset = rand() % 200;
 		int yOffset = rand() % 200;
 		int rotate = rand() % 90;
-		trees[i] = new DrawableObject(tree, shad);
+		trees[i] = new DrawableObject(tree, shader_ph);
 		trees[i]->SetColor(vec3(1, 1, 1));
 		trees[i]->Initialize();
 		trees[i]->Scale(vec3(0.2f));
@@ -69,7 +70,7 @@ void Application::Run()
 	drawableObjects.push_back(loaded);
 	drawableObjects.push_back(grass);
 	//drawableObjects.push_back(sd);
-	sc2->DomeObject_ = tuple<Shader*, DrawableObject*>(shad, sd);
+	sc2->DomeObject_ = tuple<Shader*, DrawableObject*>(shader_def, sd);
 
 	LightBase* lb = new LightBase();
 	FlashLight* lb2 = new FlashLight();

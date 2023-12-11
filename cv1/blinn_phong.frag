@@ -2,14 +2,37 @@
 
 in vec3 FragPos;
 in vec3 Normal;
+in vec2 TexCoord;
 
 out vec4 FragColor;
 
-uniform vec3 uLightPosition;
-uniform vec3 uViewPosition;
-uniform vec3 uLightColor;
-uniform vec3 uObjectColor;
-uniform float uShininess;
+#define MAX_LIGHTS 4  // Adjust this based on your application's needs
+
+struct Light {
+    int type;         // 0 for point light, 1 for spotlight
+    vec3 direction;  // Direction of the spotlight
+    vec3 position;
+    vec3 color;
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+
+    // Properties for both point light and spotlight
+    float constant;
+    float linear;
+    float quadratic;
+
+    // Additional properties for spotlight
+    float cutoff;     // Cutoff angle in radians
+    float outerCutoff; // Outer cutoff angle for smooth falloff
+};
+
+uniform vec3 viewPos;
+uniform Light lights[MAX_LIGHTS];
+uniform int numLights;  // Number of active lights
+uniform vec3 objectColor;
+uniform sampler2D uTexture;
+
 
 void main()
 {

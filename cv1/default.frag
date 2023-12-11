@@ -24,16 +24,12 @@ uniform sampler2D uTexture;
 
 void main()
 {
-    vec3 result = vec3(0.0);
+    vec3 darkness = vec3(0.5);
 
-    for (int i = 0; i < numLights; ++i) {
-        // Ambient
-        vec3 ambient = lights[i].ambient * lights[i].color;
-        vec3 textureColor = texture(uTexture, TexCoord).xyz;
+    vec3 textureColor = texture(uTexture, TexCoord).xyz;
 
         // Accumulate lighting contributions from each light
-        result += ambient * textureColor * objectColor ;
-    }
+    vec3 result = textureColor * objectColor * darkness;
 
     FragColor = vec4(result, 1.0);
 }

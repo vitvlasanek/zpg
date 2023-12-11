@@ -16,7 +16,7 @@ public:
 	/// Sets light to index in referenced shader
 	/// </summary>
 	/// <param name="shaderIndex">: from referecned Shader</param>
-	void SetUniforms(Shader* shader, int shaderIndex);
+	virtual void SetUniforms(Shader* shader, int shaderIndex);
 
 	/// <summary>
 	/// Changes light color (defauls is white)

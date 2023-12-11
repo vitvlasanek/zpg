@@ -9,7 +9,8 @@ class FlashLight : public LightBase, public Observer
 {
 public:
 	FlashLight& AttachToCamera(Camera* cam);
-
+	FlashLight();
+	void SetUniforms(Shader* shader, int shaderIndex) override;
 // Inherited via Observer
 	void Update() override;
 private:

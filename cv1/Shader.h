@@ -47,6 +47,7 @@ private:
 public:
 	Shader(Camera* c, const char* vertexFile, const char* fragmentFile);
 	Shader(const char* vertexFile, const char* fragmentFile);
+	Shader(string type);
 	Shader(Camera* c);
 	GLint GetUniformLocation(const string& name);
 	void Activate();

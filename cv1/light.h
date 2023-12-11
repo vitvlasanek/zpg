@@ -15,7 +15,7 @@ struct Light {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
-    float constatnt;
+    float constant;
     float linear;
     float quadratic;
     float cuttof;

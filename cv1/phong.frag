@@ -10,6 +10,7 @@ out vec4 FragColor;
 
 struct Light {
     int type;         // 0 for point light, 1 for spotlight
+    vec3 direction;  // Direction of the spotlight
     vec3 position;
     vec3 color;
     vec3 ambient;
@@ -22,7 +23,6 @@ struct Light {
     float quadratic;
 
     // Additional properties for spotlight
-    vec3 direction;  // Direction of the spotlight
     float cutoff;     // Cutoff angle in radians
     float outerCutoff; // Outer cutoff angle for smooth falloff
 };
@@ -39,30 +39,34 @@ void main()
 
     for (int i = 0; i < numLights; ++i) {
         vec3 lightDir = normalize(lights[i].position - FragPos);
-        float cosTheta = dot(lightDir, normalize(-lights[i].direction));
+        if (lights[i].type == 1) {
+            lightDir = -normalize(lights[i].direction);
+        }
 
         // Common calculations
         vec3 ambient = lights[i].ambient * lights[i].color;
-        vec3 diffuse = lights[i].diffuse * max(dot(Normal, lightDir), 0.0);
-        
+
+
+
+        vec3 diffuse = lights[i].diffuse * max(dot(Normal, lightDir), 0.0) * lights[i].color;
+
         float specularStrength = 0.5; // Adjust this value as needed
         vec3 viewDir = normalize(viewPos - FragPos);
-        vec3 reflectDir = reflect(-lightDir, normalize(Normal));
+        vec3 reflectDir = reflect(lightDir, normalize(Normal));
+
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0); // Shininess factor
         vec3 specular = lights[i].specular * (spec * specularStrength) * lights[i].color;
 
         float attenuation = 1.0;
         float spotlightEffect = 1.0;
+        float distance_ = length(lights[i].position - FragPos);
 
         // Point light calculations
-        if (lights[i].type == 0) {
-            //float distance = length(lights[i].position - FragPos);
-            float distance = 1;
-            attenuation = 1.0 / (lights[i].constant + lights[i].linear * distance + lights[i].quadratic * (distance * distance));
-        }
+        attenuation = (1.0) / (lights[i].constant + lights[i].linear * distance_ + lights[i].quadratic * (distance_ * distance_));
         // Spotlight calculations
-        else if(lights[i].type == 1) {
-            spotlightEffect = smoothstep(lights[i].cutoff, lights[i].outerCutoff, cosTheta);
+        if(lights[i].type == 1) {
+            float cosTheta = dot(lightDir, normalize(-lights[i].direction));
+            spotlightEffect = smoothstep(lights[i].cutoff, lights[i].outerCutoff, 1);
         }
 
         // Accumulate lighting contributions from each light

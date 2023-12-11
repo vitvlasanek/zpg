@@ -11,20 +11,21 @@ Camera::Camera(int width, int height, vec3 position, Shader* s)
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
-	this->shader_ = s;
+	//this->shader_ = s;
 }
 
-
-void Camera::UpdateUniforms()
-{
-	glUniformMatrix4fv(this->shader_->GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cameraMatrix));
-	glUniform3fv(this->shader_->GetUniformLocation("viewPos"), 1, glm::value_ptr(this->Position));
-}
+//
+//void Camera::UpdateUniforms()
+//{
+//	glUniformMatrix4fv(this->shader_->GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cameraMatrix));
+//	glUniform3fv(this->shader_->GetUniformLocation("viewPos"), 1, glm::value_ptr(this->Position));
+//}
 
 void Camera::UpdateUniforms(Shader * shader)
 {
 	glUniformMatrix4fv(shader->GetUniformLocation("camMatrix"), 1, GL_FALSE, glm::value_ptr(this->cameraMatrix));
 	glUniform3fv(shader->GetUniformLocation("viewPos"), 1, glm::value_ptr(this->Position));
+	this->Notify();
 }
 
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)

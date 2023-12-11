@@ -20,7 +20,9 @@ class Camera : public Subject
 {
 private:
 	Shader* shader_;
+
 public:
+	vec3 view_;
 	// Camera constructor to set up initial values
 	Camera(int width, int height, vec3 position, Shader* s);
 	//Camera(Shader* s);

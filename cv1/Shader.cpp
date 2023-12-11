@@ -42,6 +42,10 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile) : Shader(nullpt
 {
 }
 
+Shader::Shader(string type) : Shader(nullptr, (type + ".vert").c_str(), (type + ".frag").c_str())
+{
+}
+
 Shader::Shader(Camera* c) : Shader(c, "default.vert", "default.frag"){}
 
 void Shader::Activate()

@@ -12,14 +12,14 @@ Scene::Scene(std::string shader_type)
 		.Build();
 	//win = &window;
 
-	const auto s = new Shader((shader_type + ".vert").c_str(), (shader_type + ".frag").c_str());
-	this->shaders_[shader_type] = s;
-	this->cam_ = new Camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f), this->shaders_[shader_type]);
+	//const auto s = new Shader((shader_type + ".vert").c_str(), (shader_type + ".frag").c_str());
+	//this->shaders_[shader_type] = s;
+	this->cam_ = new Camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f), nullptr);
 }
 
 int Scene::Initialize()
 {
-	this->shader = this->shaders_["phong"];
+	//this->shader = this->shaders_["phong"];
 	//this->cam_->Attach(this->shader);
 
 	for (int i = 0; i < drawableObjects_.size(); i++)
@@ -40,25 +40,28 @@ void Scene::Run()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		cam_->Inputs(win->GetWindow());
 
 		cam_->UpdateMatrix(45.0f, 0.1f, 100.0f);
 		//get<1>(DomeObject_)->Translate(cam_->Position);
 		get<0>(DomeObject_)->Activate();
+		get<0>(DomeObject_)->LightsCount(this->lightsVector_.size());
 		this->DrawLights(get<0>(DomeObject_));
+		cam_->UpdateUniforms(get<0>(DomeObject_));
 		get<1>(DomeObject_)->Rotate(vec3(0.0f, 0.02f, 0.0f));
 		get<1>(DomeObject_)->MoveTo(this->cam_->Position);
 		get<1>(DomeObject_)->Draw();
 		get<0>(DomeObject_)->Deactivate();
+
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		//shader->Activate();
 		for (const auto& pair : this->ShaderObjects_) {
 			pair.first->Activate();
+			this->DrawLights(pair.first);
 			cam_->UpdateUniforms(pair.first);
 			pair.first->LightsCount(this->lightsVector_.size());
-			this->DrawLights(pair.first);
 			for (const auto& d : pair.second) {
 				d->Draw();
 			}
