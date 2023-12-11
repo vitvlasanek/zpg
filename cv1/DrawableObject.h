@@ -32,6 +32,7 @@ public:
 #pragma region Transformations
 	void Transform(Transformation* transformationMatrix);
 	void Translate(const vec3& tranlation);
+	void MoveTo(const vec3& position);
 	void Rotate(const vec3& rotation);
 	void Scale(const vec3& scale);
 #pragma endregion

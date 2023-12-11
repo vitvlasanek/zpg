@@ -38,12 +38,21 @@ void Scene::Run()
 {
 	while (!win->ShouldClose())
 	{
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+
+		//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		cam_->Inputs(win->GetWindow());
 
 		cam_->UpdateMatrix(45.0f, 0.1f, 100.0f);
+		//get<1>(DomeObject_)->Translate(cam_->Position);
+		get<0>(DomeObject_)->Activate();
+		this->DrawLights(get<0>(DomeObject_));
+		get<1>(DomeObject_)->Rotate(vec3(0.0f, 0.02f, 0.0f));
+		get<1>(DomeObject_)->MoveTo(this->cam_->Position);
+		get<1>(DomeObject_)->Draw();
+		get<0>(DomeObject_)->Deactivate();
+		glClear(GL_DEPTH_BUFFER_BIT);
+
 		//shader->Activate();
 		for (const auto& pair : this->ShaderObjects_) {
 			pair.first->Activate();
@@ -56,7 +65,7 @@ void Scene::Run()
 			pair.first->Deactivate();
 		}
 
-		glfwSwapBuffers(win->GetWindow());
+		win->SwapBuffers();
 		glfwPollEvents();
 	}
 }
@@ -165,7 +174,7 @@ Scene& Scene::AddShaders(vector<Shader*> shaders)
 Scene& Scene::SetCamera(Camera* cam)
 {
 	this->cam_ = cam;
-	this->shader = new Shader(this->cam_, "phong.vert", "phong.frag");
+	//this->shader = new Shader(this->cam_, "phong.vert", "phong.frag");
 	return *this;
 }
 

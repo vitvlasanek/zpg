@@ -14,6 +14,8 @@ void Application::Run()
 {
 
 	Scene* sc2 = new Scene("phong");
+
+
 	vector<DrawableObject*> drawableObjects;
 
 	SkinnedModel* sphereModel2 = new SkinnedModel("model.obj");
@@ -27,14 +29,22 @@ void Application::Run()
 
 	Texture* t = new Texture("model.png");
 	Texture* treeTexture = new Texture("tree.png");
+	Texture* domeTexture = new Texture("skydome.png");
 	Shader* shad = new Shader(new Camera());
 	Shader* shader_ph = sc2->shaders_["phong"];
+
+	Camera* cam = new Camera(1280, 720, glm::vec3(0.0f, 0.0f, 2.0f), shader_ph);
+	sc2->SetCamera(cam);
 
 	DrawableObject* loaded = new DrawableObject(sphereModel2, shader_ph);
 	loaded->Initialize();
 	loaded->SetTexture(t);
 
 	DrawableObject* grass = new DrawableObject(plane, shad);
+	DrawableObject* sd = new DrawableObject(dome, shad);
+	sd->Initialize();
+	sd->SetTexture(domeTexture);
+	//sd->Scale(vec3(5));
 	Texture* grassTexture = new Texture("grass.png");
 	grass->Initialize();
  	grass->SetTexture(grassTexture);
@@ -58,9 +68,12 @@ void Application::Run()
 	}
 	drawableObjects.push_back(loaded);
 	drawableObjects.push_back(grass);
+	//drawableObjects.push_back(sd);
+	sc2->DomeObject_ = tuple<Shader*, DrawableObject*>(shad, sd);
 
 	LightBase* lb = new LightBase();
-	LightBase* lb2 = new LightBase(); 
+	FlashLight* lb2 = new FlashLight();
+	lb2->AttachToCamera(cam);
 
 	lb->SetColor(vec3(1, 0, 0)).SetPosition(vec3(10,10,0));
 	lb2->SetPosition(vec3(100, 100, 100));

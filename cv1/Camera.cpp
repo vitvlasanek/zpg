@@ -36,6 +36,7 @@ void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 	projection = perspective(radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
 	this->cameraMatrix = projection * view;
+	this->Notify();
 }
 
 

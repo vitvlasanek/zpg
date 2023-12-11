@@ -27,6 +27,11 @@ bool Window::ShouldClose()
 	return glfwWindowShouldClose(this->window_);
 }
 
+void Window::SwapBuffers()
+{
+	glfwSwapBuffers(this->window_);
+}
+
 void Window::error_callback(int error, const char* description)
 {
 	fputs(description, stderr);

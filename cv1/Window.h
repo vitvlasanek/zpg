@@ -34,6 +34,7 @@ public:
 	void GetInfo();
 	void Run(GLuint shader_program, GLuint VAO);
 	bool ShouldClose();
+	void SwapBuffers();
 
 private:
 	GLFWwindow* window_;

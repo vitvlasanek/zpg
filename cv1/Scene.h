@@ -51,6 +51,7 @@ public:
 	Scene& SetCamera(Camera* cam);
 	map<string, Shader*> shaders_;
 
+	tuple<Shader*, DrawableObject*> DomeObject_;
 
 private:
 	Window* win;

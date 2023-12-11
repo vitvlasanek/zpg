@@ -19,6 +19,15 @@ void DrawableObject::Translate(const vec3& translation) {
 	this->Notify();
 }
 
+void DrawableObject::MoveTo(const vec3& position)
+{
+	modelMatrix_[3][0] = position.x; // Set X component of translation
+	modelMatrix_[3][1] = position.y; // Set Y component of translation
+	modelMatrix_[3][2] = position.z; // Set Z component of translation
+
+	this->Notify();
+}
+
 void DrawableObject::Rotate(const vec3& rotation) {
 	modelMatrix_ = rotate(modelMatrix_, radians(rotation.x), vec3(1.0f, 0.0f, 0.0f));
 	modelMatrix_ = rotate(modelMatrix_, radians(rotation.y), vec3(0.0f, 1.0f, 0.0f));

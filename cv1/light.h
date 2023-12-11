@@ -8,9 +8,16 @@
 using namespace glm;
 
 struct Light {
+    int type; //0 = pointlight, 1 = spotlight/flashlight
     vec3 position;
+    vec3 direction;
     vec3 color;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+    float constatnt;
+    float linear;
+    float quadratic;
+    float cuttof;
+    float outerCutoff;
 };

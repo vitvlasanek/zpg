@@ -21,5 +21,4 @@ void main()
     vec4 fragPosCameraSpace = camMatrix * vec4(FragPos, 1.0);
     //gl_Position = projection * view * fragPosCameraSpace;
     gl_Position = fragPosCameraSpace;
-
 }
