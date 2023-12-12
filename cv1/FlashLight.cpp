@@ -9,13 +9,13 @@ FlashLight& FlashLight::AttachToCamera(Camera* cam)
 
 FlashLight::FlashLight() : LightBase()
 {
-	this->light_.cuttof = cos(radians(2.5f));
-	this->light_.outerCutoff = cos(radians(5.5f));
-	this->light_.type = 1;
+	this->light_.cuttof = cos(radians(5.02f));
+	this->light_.outerCutoff = cos(radians(20.0f));
+  	this->light_.type = 1;
 	this->light_.diffuse = vec3(1.0f);
 	this->light_.specular = vec3(1.0f);
 	this->light_.ambient = vec3(0.1f);
-	this->light_.color = vec3(1, 0, 0);
+	this->light_.color = vec3(1.0f, 1.0f, 0.75f);
 	this->light_.position = vec3(1, 1, 1);
 	this->light_.direction = vec3(1, 1, 1);
 }
