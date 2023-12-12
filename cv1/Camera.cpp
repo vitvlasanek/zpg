@@ -34,6 +34,7 @@ void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 	mat4 projection = mat4(1.0f);
 
 	view = lookAt(Position, Position + Orientation, Up);
+	
 	projection = perspective(radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
 	this->cameraMatrix = projection * view;

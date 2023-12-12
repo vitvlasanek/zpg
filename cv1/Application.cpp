@@ -78,7 +78,7 @@ void Application::Run()
 
 	lb->SetColor(vec3(1, 0, 0)).SetPosition(vec3(10,10,0));
 	lb2->SetPosition(vec3(100, 100, 100));
-	sc2->AddLights(lb);
+	//sc2->AddLights(lb);
 	sc2->AddLights(lb2);
 
 	sc2->AddModels(drawableObjects);

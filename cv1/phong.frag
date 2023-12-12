@@ -39,9 +39,9 @@ void main()
 
     for (int i = 0; i < numLights; ++i) {
         vec3 lightDir = normalize(lights[i].position - FragPos);
-        if (lights[i].type == 1) {
-            lightDir = -normalize(lights[i].direction);
-        }
+//        if (lights[i].type == 1) {
+//            lightDir = normalize(lights[i].direction);
+//        }
 
         // Common calculations
         vec3 ambient = lights[i].ambient * lights[i].color;
@@ -66,7 +66,15 @@ void main()
         // Spotlight calculations
         if(lights[i].type == 1) {
             float cosTheta = dot(lightDir, normalize(-lights[i].direction));
-            spotlightEffect = smoothstep(lights[i].cutoff, lights[i].outerCutoff, 1);
+            if (cosTheta > lights[i].outerCutoff)
+            {
+                spotlightEffect = smoothstep(lights[i].cutoff, lights[i].outerCutoff, 1);
+            }
+            else
+            {
+                spotlightEffect = 0.05;
+            }
+
         }
 
         // Accumulate lighting contributions from each light

@@ -40,7 +40,7 @@ void FlashLight::Update()
 {
 	if (cam_ != nullptr) {
 		this->SetPosition(this->cam_->Position);
-		this->light_.direction = this->cam_->Position;
+		this->light_.direction = this->cam_->Orientation;
 	}
 	else
 	{
