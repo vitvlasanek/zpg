@@ -6,19 +6,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-void Window::Run(GLuint shader_program, GLuint VAO)
+void Window::Run()
 {
 	while (!glfwWindowShouldClose(window_)) {
-		// clear color and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(shader_program);
-		glBindVertexArray(VAO);
-		// draw triangles
-		glDrawArrays(GL_TRIANGLES, 0, 3); //mode,first,count
-		// update other events like input handling
+		
+		scene_->Run();
+		this->SwapBuffers();
 		glfwPollEvents();
-		// put the stuff we’ve been drawing onto the display
-		glfwSwapBuffers(window_);
 	}
 }
 
@@ -30,6 +24,11 @@ bool Window::ShouldClose()
 void Window::SwapBuffers()
 {
 	glfwSwapBuffers(this->window_);
+}
+
+void Window::SetScene(Scene* scene)
+{
+	this->scene_ = scene;
 }
 
 void Window::error_callback(int error, const char* description)
@@ -61,6 +60,8 @@ Window::Window(const WindowBuilder& builder)
 		builder.fullscreen_ ? monitor : NULL,
 		NULL
 	);
+
+	this->scene_ = builder.scene_;
 	
 	if (!this->window_) {
 		fprintf(stderr, "Failed to create GLFW window\n");

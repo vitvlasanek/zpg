@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <vector>
 #include <stdio.h>
-#include "Window.h"
 #include "Shader.h"
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
@@ -54,7 +53,7 @@ public:
 	tuple<Shader*, DrawableObject*> DomeObject_;
 
 private:
-	Window* win;
+	//Window* win;
 	Shader* shader;
 	Camera* cam_;
 	vector<DrawableObject*> drawableObjects_;

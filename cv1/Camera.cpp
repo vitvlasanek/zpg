@@ -6,11 +6,12 @@ Camera::Camera() {
 
 
 
-Camera::Camera(int width, int height, vec3 position, Shader* s)
+Camera::Camera(int width, int height, vec3 position, GLFWwindow* w)
 {
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
+	this->window_ = w;
 	//this->shader_ = s;
 }
 
@@ -43,8 +44,10 @@ void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
 
 
 
-void Camera::Inputs(GLFWwindow* window)
+void Camera::Inputs()
 {
+	GLFWwindow* window = this->window_;
+
 	// Handles key inputs
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{

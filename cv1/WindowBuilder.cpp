@@ -25,6 +25,12 @@ Window::WindowBuilder& Window::WindowBuilder::SetSize(int width, int height)
 	return *this;
 }
 
+Window::WindowBuilder& Window::WindowBuilder::SetScene(Scene* scene)
+{
+	this->scene_ = scene;
+	return *this;
+}
+
 Window * Window::WindowBuilder::Build()
 {
 	return new Window(*this);

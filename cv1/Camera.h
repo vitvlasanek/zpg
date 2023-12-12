@@ -16,15 +16,13 @@ using namespace std;
 // ---- Camera .h ---
 // dopredna deklarace
 class Shader;
+class Window;
 class Camera : public Subject
 {
-private:
-	Shader* shader_;
-
 public:
 	vec3 view_;
 	// Camera constructor to set up initial values
-	Camera(int width, int height, vec3 position, Shader* s);
+	Camera(int width, int height, vec3 position, GLFWwindow* w);
 	//Camera(Shader* s);
 	Camera();
 
@@ -36,16 +34,6 @@ public:
 	mat4 cameraMatrix = mat4(1.0f);
 
 	// Prevents the camera from jumping around when first clicking left click
-	bool firstClick = true;
-
-	// Stores the width and height of the window
-	int width;
-	int height;
-
-	// Adjust the speed of the camera and it's sensitivity when looking around
-	float speed = 0.1f;
-	float sensitivity = 100.0f;
-
 
 	// Updates and exports the camera matrix to the Vertex Shader
 	void UpdateUniforms();
@@ -54,7 +42,19 @@ public:
 
 	void UpdateMatrix(float FOVdeg, float nearPlane, float farPlane);
 	// Handles camera inputs
-	void Inputs(GLFWwindow* window);
+	void Inputs();
+	//void Inputs(GLFWwindow* window);
+private:
+	bool firstClick = true;
+
+	// Stores the width and height of the window
+	int width;
+	int height;
+	GLFWwindow * window_;
+
+	// Adjust the speed of the camera and it's sensitivity when looking around
+	float speed = 0.1f;
+	float sensitivity = 100.0f;
 
 
 };
