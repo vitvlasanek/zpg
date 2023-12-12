@@ -1,4 +1,4 @@
-#version 330 core
+#version 400 core
 
 in vec3 FragPos;
 in vec3 Normal;
@@ -39,9 +39,9 @@ void main()
 
     for (int i = 0; i < numLights; ++i) {
         vec3 lightDir = normalize(lights[i].position - FragPos);
-        if (lights[i].type == 1) {
-            lightDir = normalize(lights[i].direction);
-        }
+//        if (lights[i].type == 1) {
+//            lightDir = normalize(lights[i].direction);
+//        }
 
         // Common calculations
         vec3 ambient = lights[i].ambient * lights[i].color;
@@ -54,7 +54,6 @@ void main()
         vec3 viewDir = normalize(viewPos - FragPos);
         vec3 reflectDir = reflect(lightDir, normalize(Normal));
 
-       
         float attenuation = 1.0;
         float spotlightEffect = 1.0;
         float distance_ = length(lights[i].position - FragPos);
@@ -64,11 +63,20 @@ void main()
         // Spotlight calculations
         if(lights[i].type == 1) {
             float cosTheta = dot(lightDir, normalize(-lights[i].direction));
-            spotlightEffect = smoothstep(lights[i].cutoff, lights[i].outerCutoff, 1);
+            if (cosTheta > lights[i].outerCutoff)
+            {
+                  spotlightEffect = (1.0 - (1.0-cosTheta)/(1.0-lights[i].outerCutoff));
+            }
+            else
+            {
+                spotlightEffect = 0.0;
+            }
+             // spotlightEffect = smoothstep(lights[i].outerCutoff, lights[i].cutoff, cosTheta);
+
         }
 
         // Accumulate lighting contributions from each light
-        result += (ambient + diffuse) * texture(uTexture, TexCoord).xyz * objectColor * attenuation * spotlightEffect;
+        result += (ambient + diffuse ) * texture(uTexture, TexCoord).xyz * objectColor * attenuation * spotlightEffect;
     }
 
     FragColor = vec4(result, 1.0);

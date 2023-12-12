@@ -1,4 +1,4 @@
-#version 330 core
+#version 400 core
 
 in vec3 FragPos;
 in vec3 Normal;
@@ -68,12 +68,13 @@ void main()
             float cosTheta = dot(lightDir, normalize(-lights[i].direction));
             if (cosTheta > lights[i].outerCutoff)
             {
-                spotlightEffect = smoothstep(lights[i].cutoff, lights[i].outerCutoff, 1);
+                  spotlightEffect = (1.0 - (1.0-cosTheta)/(1.0-lights[i].outerCutoff));
             }
             else
             {
-                spotlightEffect = 0.05;
+                spotlightEffect = 0.0;
             }
+             // spotlightEffect = smoothstep(lights[i].outerCutoff, lights[i].cutoff, cosTheta);
 
         }
 
